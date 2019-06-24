@@ -13,6 +13,25 @@
            http://www.springframework.org/schema/aop
 		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <!--开启注解扫描，只扫描Controller和service注解-->
+    <context:component-scan base-package="com.bbs.controller"/>
+
+    <!--配置的视图解析器对象-->
+    <bean id="ViewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 设置静态资源不过滤 -->
+    <mvc:default-servlet-handler/>
+
+    <!--开启SpringMVC注解的支持-->
+    <mvc:annotation-driven/>
+
+    <!--开启aop注解的支持-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
 
 
 
