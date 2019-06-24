@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/userController")
+@RequestMapping("/user.do")
 public class UserController {
     @Autowired
     UserService userService;
