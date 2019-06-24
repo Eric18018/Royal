@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
          pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <html>
@@ -25,7 +27,7 @@
         <div class="hm-inner-r r">
             <div class="box">
                 <a href="javascript:;" id="login" class="to-login">游客登录</a>
-                <a href="register.html">【新用户注册】</a>
+                <a href="/pages/register.jsp">【新用户注册】</a>
                 <div id="dialogBg"></div>
                 <div id="dialog" class="animated">
                     <img class="dialogIco" width="50" height="40" src="../images/ico.png"/>
@@ -232,7 +234,7 @@
 </div>
 
 <!-- 发帖弹出框 -->
-<form action="" method="post">
+<form action="${pageContext.request.contextPath}/article/save.do" method="post">
     <div class="pop-box ft-box">
         <div class="mask"></div>
         <div class="win">
