@@ -39,7 +39,7 @@
     </bean>
     <!--配置dao层代理对象-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.itheima.dao"/>
+        <property name="basePackage" value="com.bbs.dao"/>
     </bean>
 
 
