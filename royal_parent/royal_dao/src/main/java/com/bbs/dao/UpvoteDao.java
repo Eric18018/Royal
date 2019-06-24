@@ -1,4 +1,4 @@
-package com.bbs;
+package com.bbs.dao;
 
 public interface UpvoteDao {
 }
