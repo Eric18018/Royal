@@ -67,7 +67,7 @@
                                                name="sendername" value="">
                                     </th>
                                     <th colspan="2">
-                                        <input type="button" value="查询" class="form-control btn-primary">
+                                        <input type="button"  value="查询" class="form-control btn-primary">
                                     </th>
                                 </tr>
                             </table>
