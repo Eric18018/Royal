@@ -13,6 +13,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleDao articleDao;
 
+    /**
+     * 保存发帖
+     * @param article
+     */
     @Override
     public void save(Article article) {
         articleDao.save(article);

@@ -23,6 +23,7 @@ public class Article implements Serializable{
     private Integer isReport;//举报状态
 
 
+
     public Integer getArticleId() {
         return articleId;
     }
