@@ -3,7 +3,7 @@ package com.bbs.dao;
 import com.bbs.domain.User;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
@@ -13,7 +13,9 @@ import java.util.List;
 @Repository("userDao")
 public interface UserDao {
 
-    @Select("select * from bbs_user_table where userName = #{userName}")
-    public List<User> findAll(String userName);
+    @Select("select * from bbs_user_table")
+    public List<User> findAll();
 
+    @Select("select * from bbs_user_table where userName = #{username}")
+    public List<User> findByUsername(String username);
 }
