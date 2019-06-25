@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 @Transactional
@@ -43,4 +44,15 @@ public class ArticleServiceImpl implements ArticleService {
 	public Article findByArticleId(Integer articleId) {
 		return articleDao.findByArticleId(articleId);
 	}
+
+    /**
+     * 查询所有帖子
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Article> findAll() throws Exception{
+        return articleDao.findAll();
+
+    }
 }

@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -32,11 +33,9 @@
                     <b>用户组：</b><input type="text" class="dropdown-toggle">
 
 
-
                     <button type="button" class="btn btn-primary btn-xs" href="#">查询</button>
 
                 </form>
-
                 <hr>
                 <%--表格--%>
                 <div class="box-body"></div>
@@ -54,23 +53,27 @@
                         <th>操作</th>
                     </tr>
                     </thead>
-
                     <tbody>
-                    <tr>
-                        <td>上天</td>
-                        <td>论如何上天</td>
-                        <td>螺旋飞升</td>
-                        <td>是</td>
-                        <td>1000</td>
-                        <td>1000</td>
-                        <td>1000</td>
-                        <td>飞升区</td>
-                        <td>
-                            <a href="${pageContext.request.contextPath}/article/deleteByArticleId.do?id=${article.id}" class="btn btn-primary btn-xs">屏蔽</a>
-                            <a href="${pageContext.request.contextPath}/article/findById?id=${user.id}" class="btn btn-info btn-xs">取消</a>
-                            <a href="${pageContext.request.contextPath}/article/findById?id=${user.id}" class="btn btn-danger btn-xs">置顶</a>
-                        </td>
-                    </tr>
+                    <c:forEach items="${articleList}" var="article">
+                        <tr>
+                            <td>${article.title}</td>
+                            <td>${article.content }</td>
+                            <td>${article.senderName }</td>
+                            <td>${article.isTopStr}</td>
+                            <td>${article.replyCount}</td>
+                            <td>${article.upvoteCount }</td>
+                            <td>${article.browseCount}</td>
+                            <td>${article.zoneId}</td>
+                                    <td>
+                                        <a href="${pageContext.request.contextPath}/article/deleteByArticleId.do?id=${article.articleId}"
+                                           class="btn btn-primary btn-xs">屏蔽</a>
+                                        <a href="${pageContext.request.contextPath}/article/findById?id=${article.articleId}"
+                                           class="btn btn-info btn-xs">取消</a>
+                                        <a href="${pageContext.request.contextPath}/article/findById?id=${article.articleId}"
+                                           class="btn btn-danger btn-xs">置顶</a>
+                                    </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
 
@@ -84,28 +87,28 @@
                             总共2 页，共14 条数据
                         </div>
                     </div>
-                <div class="box-tools pull-right"><br>
-                    <ul class="pagination">
-                        <li><a href="#" aria-label="Previous">首页</a></li>
-                        <li><a href="#">上一页</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">下一页</a></li>
-                        <li><a href="#" aria-label="Next">尾页</a></li>
-                    </ul>
+                    <div class="box-tools pull-right"><br>
+                        <ul class="pagination">
+                            <li><a href="#" aria-label="Previous">首页</a></li>
+                            <li><a href="#">上一页</a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#">下一页</a></li>
+                            <li><a href="#" aria-label="Next">尾页</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
 
-        </div><!-- /.panel -->
-    </div><!-- /.hrms_main_ad -->
-</div><!-- /.hrms_body -->
-<!-- 尾部 -->
-<%@ include file="../commom/foot.jsp" %>
-</div><!-- /.hrms_container -->
+            </div><!-- /.panel -->
+        </div><!-- /.hrms_main_ad -->
+    </div><!-- /.hrms_body -->
+    <!-- 尾部 -->
+    <%@ include file="../commom/foot.jsp" %>
+
 
 </body>
 </html>

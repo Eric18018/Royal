@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 /**
  * 帖子表 持久层
  */
@@ -24,4 +26,13 @@ public interface ArticleDao {
 	 */
 	@Select("select * from bbs_article_table where articleId=#{articleId}")
 	Article findByArticleId(Integer articleId);
+
+	/**
+	 * 查询所有帖子
+	 * @return
+	 * @throws Exception
+	 */
+	@Select("select * from bbs_article_table")
+    List<Article> findAll() throws Exception;
+
 }
