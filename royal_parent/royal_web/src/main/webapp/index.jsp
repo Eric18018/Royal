@@ -108,7 +108,7 @@
 
                     <li class="clearfix ding">
                         <div class="hm-index-title">
-                            <i class="set-to-top">顶</i> <a href="getArticle.html">求官方出艾琳英雄活动</a>
+                            <i class="set-to-top">顶</i> <a href="pages/getArticle.jsp">求官方出艾琳英雄活动</a>
                         </div>
                         <div class="hm-index-con">本人玩得迟，所以看到别人用艾琳的时候，特别羡慕，现贵族6了，很想要一个艾琳，我身边很多朋友也想要，求</div>
                         <div class="hm-index-info l">
@@ -125,7 +125,7 @@
 
                     <li class="clearfix ding">
                         <div class="hm-index-title">
-                            <i class="set-to-top">顶</i> <a href="getArticle.html">求官方出艾琳英雄活动</a>
+                            <i class="set-to-top">顶</i> <a href="pages/getArticle.html">求官方出艾琳英雄活动</a>
                         </div>
                         <div class="hm-index-con">本人玩得迟，所以看到别人用艾琳的时候，特别羡慕，现贵族6了，很想要一个艾琳，我身边很多朋友也想要，求</div>
                         <div class="hm-index-info l">

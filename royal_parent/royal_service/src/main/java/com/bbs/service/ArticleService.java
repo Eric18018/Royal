@@ -4,4 +4,6 @@ import com.bbs.domain.Article;
 
 public interface ArticleService {
 	void save(Article article);
+
+	Article findByArticleId(Integer articleId);
 }

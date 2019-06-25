@@ -21,7 +21,7 @@ public class ArticleController {
     @RequestMapping("/save.do")
     public String save(Article article) {
         articleService.save(article);
-        return "getArticle";
+        return "redirect:findByArticleId.do?articleId=" + article.getArticleId();
     }
 
     /**
@@ -32,6 +32,9 @@ public class ArticleController {
     @RequestMapping("/findByArticleId.do")
     public ModelAndView findByArticleId(Integer articleId) {
         ModelAndView mv = new ModelAndView();
+		Article article = articleService.findByArticleId(articleId);
+		mv.addObject("article", article);
+		mv.setViewName("getArticle");
         return mv;
     }
 }
