@@ -1,10 +1,14 @@
-<%@ page language="java" pageEncoding="UTF-8" %>
+<%@ page language="java"   isELIgnored="false" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <title>王者荣耀论坛管理系统</title>
-
+    <style type="text/css">
+        .modal-title {
+            color: deepskyblue;
+        }
+    </style>
 </head>
 <body>
 <div class="hrms_container">
@@ -22,17 +26,35 @@
             <div class="panel panel-success">
                 <ol class="breadcrumb">
                     <li><a href="#">用户帖子管理</a></li>
-                    <li class="active">铭感词汇管理</li>
+                    <li class="active">敏感词汇管理</li>
                 </ol>
 
                 <hr>
-
                 <%--工具栏--%>
-
-                <button type="button" class="btn btn-primary " href="javascript:">新增敏感词汇</button>
-
-
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    新增敏感词汇
+                </button>
+                <form action="/word/saveByWord.do">
+                    <div id="myModal" class="modal modal-primary" role="dialog">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">新的敏感词:</h4>
+                                    <br>
+                                    <input name="word" type="text" class="form-control" placeholder="请输入要增加的敏感词汇..">
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline" data-dismiss="modal">关闭</button>
+                                        <button type="submit" class="btn btn-outline" >保存</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                 <hr>
+
                 <%--表格--%>
                 <div class="box-body"></div>
                 <table id="example2" class="table table-bordered table-hover">
@@ -56,8 +78,8 @@
                                        class="btn btn-info btn-xs">启用</a>
                                 </c:if>
                                 <c:if test="${words.status==1}">
-                                <a href="${pageContext.request.contextPath}/word/updateBywordId.do?wordId=${words.wordId}&status=${words.status}"
-                                   class="btn btn-danger btn-xs">停用</a>
+                                    <a href="${pageContext.request.contextPath}/word/updateBywordId.do?wordId=${words.wordId}&status=${words.status}"
+                                       class="btn btn-danger btn-xs">停用</a>
                                 </c:if>
                             </td>
                         </tr>
@@ -114,9 +136,9 @@
 
             </div>
 
-
-        </div><!-- /.panel -->
-    </div><!-- /.hrms_main_ad -->
+        </div>
+    </div><!-- /.panel -->
+</div><!-- /.hrms_main_ad -->
 </div><!-- /.hrms_body -->
 <!-- 尾部 -->
 <%@ include file="../commom/foot.jsp" %>

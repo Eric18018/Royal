@@ -46,4 +46,13 @@ public class WordController {
         wordService.updateBywordId(wordId,status);
         return "redirect:findAll.do";
     }
+
+    /**
+     * 敏感词汇添加功能
+     */
+    @RequestMapping("/saveByWord.do")
+    public String saveByWord (String word) throws Exception{
+        wordService.saveByWord(word);
+        return "redirect:findAll.do";
+    }
 }

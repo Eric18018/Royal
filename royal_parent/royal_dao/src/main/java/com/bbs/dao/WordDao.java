@@ -1,6 +1,7 @@
 package com.bbs.dao;
 
 import com.bbs.domain.Word;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -25,4 +26,10 @@ public interface WordDao {
      */
     @Update("UPDATE bbs_word_table SET STATUS = #{status} WHERE wordid = #{wordId}")
     void updateBywordId(@Param("wordId") Integer wordId,@Param("status") Integer status);
+
+    /**
+     * 敏感词汇添加功能
+     */
+    @Insert("insert into bbs_word_table (word) values (#{word})")
+    void saveByWord(String word);
 }

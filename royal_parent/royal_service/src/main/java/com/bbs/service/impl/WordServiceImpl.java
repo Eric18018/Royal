@@ -42,4 +42,15 @@ public class WordServiceImpl implements WordService {
         }
         wordDao.updateBywordId(wordId, status);
     }
+
+    /**
+     * 敏感词汇添加功能
+     */
+    @Override
+    public void saveByWord(String word) throws Exception {
+        if (word != null && word != ""){
+            wordDao.saveByWord(word);
+        }
+
+    }
 }

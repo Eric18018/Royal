@@ -20,4 +20,9 @@ public interface WordService {
      * 敏感词汇开启关闭功能
      */
     void updateBywordId(Integer wordId, Integer status) throws Exception;
+
+    /**
+     * 敏感词汇添加功能
+     */
+    void saveByWord(String word) throws Exception;
 }
