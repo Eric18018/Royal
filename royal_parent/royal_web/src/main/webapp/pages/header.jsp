@@ -13,12 +13,12 @@
             <div class="box">
                 <c:if test= "${user.userName == null}">
                     <a href="javascript:;" id="login" class="to-login">游客登录</a>
-                    <a href="/pages/register.jsp">【新用户注册】</a>
+                    <a href="${pageContext.request.contextPath}/pages/register.jsp">【新用户注册】</a>
                 </c:if>
                 <c:if test= "${user.userName != null}">
                     <d>欢迎&nbsp;${user.roleStr}&nbsp;:&nbsp;${user.userName}</d>
-                    <a href="/pages/user_info.jsp">个人中心</a>
-                    <a href="user/logout.do">注销</a>
+                    <a href="${pageContext.request.contextPath}/pages/user_info.jsp">个人中心</a>
+                    <a href="${pageContext.request.contextPath}/user/logout.do">注销</a>
                 </c:if>
 
                 <div id="dialogBg"></div>
@@ -27,7 +27,7 @@
                     <div class="dialogTop" style="height:25px;">
                         <a href="javascript:;" class="closeDialogBtn">关闭</a>
                     </div>
-                    <form action="user/login.do" >
+                    <form action="${pageContext.request.contextPath}/user/login.do" >
                         <ul class="editInfos">
                             <li>用户名：<input type="text" id="userName" name="userName" class="ipt"/></li>
                             <li>密&nbsp;&nbsp;&nbsp;码：<input type="password" id="userPass" name="userPass" class="ipt"/></li>
@@ -39,3 +39,26 @@
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript">
+    $(function () {
+        //显示弹框
+        $('.box #login').click(function () {
+            var className = $(this).attr('class');
+            $('#dialogBg').fadeIn(300);
+            $('#dialog').removeAttr('class').addClass('animated ' + className + '').fadeIn();
+            $('#userName').focus();
+            $("#j_fixedBar").hide();
+        });
+
+        //关闭弹窗
+        $('.closeDialogBtn').click(function () {
+            $('#dialogBg').fadeOut(300, function () {
+                $('#dialog').addClass('bounceOutUp').fadeOut();
+                $("#j_fixedBar").show();
+            });
+        });
+
+    });
+</script>

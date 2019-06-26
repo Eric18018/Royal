@@ -36,8 +36,8 @@
             <div class="hm-bbs-info-in l" style="margin-left:30px;">
                 <div class="t clearfix"><h2 class="l">王者荣耀</h2></div>
                 <p>
-                    <span>今日帖子<strong>99</strong></span>
-                    <span>全部帖子<strong>250</strong></span>
+                    <span>今日帖子<strong>${todayArticles}</strong></span>
+                    <span>全部帖子<strong>${totalArticles}</strong></span>
                 </p>
             </div>
             <div class="search-box l">
@@ -55,7 +55,7 @@
             <c:forEach items="${zones}" var="zone">
 
                 <li <c:if test= "${zone.zoneId == currentZoneId}">class="current"</c:if> >
-                    <a href=/article/findArticlesByZoneId.do?zoneId=${zone.zoneId}><em></em>${zone.zoneName}</a>
+                    <a href=${pageContext.request.contextPath}/article/findArticlesByZoneId.do?zoneId=${zone.zoneId}><em></em>${zone.zoneName}</a>
                 </li>
             </c:forEach>
         </ul>
@@ -69,7 +69,7 @@
                     <c:if test= "${article.isTop == '1'}">
                         <li class="clearfix ding">
                             <div class="hm-index-title">
-                                <i class="set-to-top">顶</i> <a href=/article/findByArticleId.do?articleId=${article.articleId}>${article.title}</a>
+                                <i class="set-to-top">顶</i> <a href=${pageContext.request.contextPath}/comment/findByArticleId.do?articleId=${article.articleId}>${article.title}</a>
                             </div>
                             <div class="hm-index-con">${article.content}</div>
                             <div class="hm-index-info l">
@@ -88,7 +88,7 @@
                     <c:if test="${article.isTop == '0'}">
                         <li class="clearfix">
                             <div class="hm-index-title">
-                                <i class="set-to-top">顶</i> <a href=/article/findByArticleId.do?articleId=${article.articleId}>${article.title}</a>
+                                <i class="set-to-top">顶</i> <a href=${pageContext.request.contextPath}/comment/findByArticleId.do?articleId=${article.articleId}>${article.title}</a>
                             </div>
                             <div class="hm-index-con">${article.content}</div>
                             <div class="hm-index-info l">
@@ -139,7 +139,14 @@
 
 <!-- 右边发帖，回顶部 -->
 <div class="fixedBar" id="j_fixedBar">
-    <a id="newTopicBtn" href="javascript:;" class="newTopic"><span></span>发帖</a>
+    <%--登录后的发帖按钮--%>
+    <c:if test= "${user.userName != null}">
+        <a id="newTopicBtn" href="javascript:;" class="newTopic"><span></span>发帖</a>
+    </c:if>
+    <%--未登录的发帖按钮--%>
+    <c:if test= "${user.userName == null}">
+    <a  id="unLoginTopicBtn" class="newTopic"><span></span>发帖</a>
+    </c:if>
     <a href="#" class="goTop"><i></i><span>返回<br/>顶部</span></a>
 </div>
 
@@ -158,6 +165,12 @@
                 <div class="win_bd_b">
                     <textarea id="content" name="content" placeholder="正文"></textarea>
                 </div>
+                <div class="win_bd_t">
+                    <input type="hidden"  name="zoneId" value="${currentZoneId}"/>
+                </div>
+                <div class="win_bd_t">
+                    <input type="hidden"  name="senderName" value="${user.userName}"/>
+                </div>
             </div>
             <div class="win_ft">
                 <div class="win_ft_in">
@@ -173,28 +186,17 @@
 </html>
 <script type="text/javascript">
     $(function () {
-        //显示弹框
-        $('.box #login').click(function () {
-            var className = $(this).attr('class');
-            $('#dialogBg').fadeIn(300);
-            $('#dialog').removeAttr('class').addClass('animated ' + className + '').fadeIn();
-            $('#userName').focus();
-            $("#j_fixedBar").hide();
-        });
-
-        //关闭弹窗
-        $('.closeDialogBtn').click(function () {
-            $('#dialogBg').fadeOut(300, function () {
-                $('#dialog').addClass('bounceOutUp').fadeOut();
-                $("#j_fixedBar").show();
-            });
-        });
 
         //查询用户是否登录
         $.post("user/findUser.do",{},function(data){
 
             alert(data);
         })
+
+        document.getElementById("unLoginTopicBtn").onclick = function () {
+            alert("您尚未登录，请先登录后发帖")
+        }
+
     });
 </script>
 

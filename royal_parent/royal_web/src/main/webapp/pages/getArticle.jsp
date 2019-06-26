@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -53,7 +54,7 @@
 
         <!--导航，回首页，帖子标题，排序-->
         <div class="detail-page-box clearfix">
-            <a href="index.html">
+            <a href="${pageContext.request.contextPath}/index.jsp">
                 <i class="hm-ico-home"></i>首页
             </a>
             <span>></span>
@@ -76,7 +77,7 @@
                     <div class="floor-con l">
                         <div class="floor-info clearfix">
                             <div class="floor-time l">${article.sendTimeStr}</div>
-                            <div class="r">${article.browseCount}</div>
+                            <div class="r">浏览数：${article.browseCount}</div>
                         </div>
                         <div class="floor-art-ans">
                             <div class="floor-art">
@@ -89,7 +90,33 @@
                 </li>
 
 
-                <!-- 评论部分,一楼及以后 -->
+                <c:forEach items="${comments}" var="comment" varStatus="status">
+                    <li class="floor clearfix">
+                        <div class="floorer-info l">
+                            <div class="floorer-photo"><img src="../images/default.png"/></div>
+                            <div class="floorer-name">${comment.commentUserName}</div>
+                        </div>
+                        <div class="floor-con l">
+                            <div class="floor-info clearfix">
+                                <div class="floor-time l">回贴时间：${comment.commentTimeStr}</div>
+                                <div class="r">${status.index + 1}楼</div>
+                            </div>
+                            <div class="floor-art-ans">
+                                <div class="floor-art">
+                                    <p>${comment.commentContent}</p>
+                                </div>
+                                <span class="icon-feedback">
+                                <a href="javascript:;" onclick="showDialog(1)"> <i></i> 回复</a>
+                            </span>
+                            </div>
+                        </div>
+                    </li>
+                </c:forEach>
+
+
+
+
+                <!--样板楼-->
                 <li class="floor clearfix">
                     <div class="floorer-info l">
                         <div class="floorer-photo"><img src="../images/default.png"/></div>
@@ -98,7 +125,7 @@
                     <div class="floor-con l">
                         <div class="floor-info clearfix">
                             <div class="floor-time l">回贴时间：2017-05-24 10:10:00</div>
-                            <div class="r">1楼</div>
+                            <div class="r">样板楼</div>
                         </div>
                         <div class="floor-art-ans">
                             <div class="floor-art">
@@ -126,80 +153,6 @@
                     </div>
                 </li>
 
-                <!--二楼-->
-                <li class="floor clearfix">
-                    <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="../images/default.png"/> </div>
-                        <div class="floorer-name">不哭不闹不炫耀</div>
-                    </div>
-                    <div class="floor-con l">
-                        <div class="floor-info clearfix">
-                            <div class="floor-time l">回贴时间：2017-05-24 10:10:00</div>
-                            <div class="r">2楼</div>
-                        </div>
-                        <div class="floor-art-ans">
-                            <div class="floor-art">
-                                <p>楼主你好，请按以下建议反馈格式回复，我们会有专人进行收集。祝你游戏愉快。</p>
-                            </div>
-                            <div class="floor-ans">
-                                <ul>
-
-                                    <!-- 回复部分 -->
-                                    <li class="clearfix">
-                                        <div class="floor-ans-pho l"><img src="../images/default.png"/></div>
-                                        <div class="floor-ans-con l">
-                                            <span class="name">张无忌</span>：顶顶顶！
-                                            <span class="ans-time">2017-05-24 10:11:00</span>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <span class="icon-feedback">
-                                <a href="javascript:;" onclick="showDialog(2)"> <i></i> 回复</a>
-                            </span>
-                        </div>
-                    </div>
-                </li>
-
-
-                <!--三楼-->
-                <li class="floor clearfix">
-                    <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="../images/default.png"/></div>
-                        <div class="floorer-name">不哭不闹不炫耀</div>
-                    </div>
-                    <div class="floor-con l">
-                        <div class="floor-info clearfix">
-                            <div class="floor-time l">回贴时间：2017-05-24 10:10:00</div>
-                            <div class="r">3楼</div>
-                        </div>
-                        <div class="floor-art-ans">
-                            <div class="floor-art">
-                                <p>楼主你好，请按以下建议反馈格式回复，我们会有专人进行收集。祝你游戏愉快。</p>
-                            </div>
-                            <div class="floor-ans">
-                                <ul>
-
-                                    <!-- 回复部分 -->
-                                    <li class="clearfix">
-                                        <div class="floor-ans-pho l"><img src="../images/default.png"/></div>
-                                        <div class="floor-ans-con l">
-                                            <span class="name">张无忌</span>：顶顶顶！
-                                            <span class="ans-time">2017-05-24 10:11:00</span>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                            <span class="icon-feedback">
-                                <a href="javascript:;" onclick="showDialog(3)"> <i></i> 回复</a>
-                            </span>
-                        </div>
-                    </div>
-                </li>
-
-
             </ul>
         </div>
 
@@ -209,13 +162,22 @@
             <!-- 未登录时候显示 <div class="con">您没有登录论坛，请登录后再进行回复</div>-->
 
             <!-- 登录后显示评论输入框-->
-            <form action="#" method="post">
+            <form action="${pageContext.request.contextPath}/comment/save.do" method="post">
                 <div class="con con-loged">
                     <div class="con-t">
-                        <textarea id="content" name="content" placeholder="请在此输入您要回复的信息"></textarea>
+                        <textarea id="content" name="commentContent" placeholder="请在此输入您要回复的信息"></textarea>
                     </div>
+                    <input type="hidden" name="articleId" value="${article.articleId}">
+                    <input type="hidden" name="commentUserName" value="${user.userName}">
                     <div class="con-b">
-                        <input type="submit" class="btn"/>
+                        <%--登录后的提交按钮--%>
+                        <c:if test= "${user.userName != null}">
+                            <input type="submit" class="btn"/>
+                        </c:if>
+                        <%--未登录的提交按钮--%>
+                        <c:if test= "${user.userName == null}">
+                            <input id="unLoginCommit" class="btn" value="提交">
+                        </c:if>
                         <span class="num">不能超过5000字</span>
                     </div>
                 </div>
@@ -264,7 +226,7 @@
 
 
 <div class="fixedBar" id="j_fixedBar">
-    <a href="#comment" class="newTopic"><span></span>回复</a>
+    <a href="#comment" class="newTopic"><span></span>评论</a>
     <a href="#" class="goTop"><i></i><span>返回<br/>顶部</span></a>
 </div>
 
@@ -277,5 +239,11 @@
         $('.pop-box').css('display', 'block');
         $("#floorSpan").html(num);
     }
+    $(function () {
+        document.getElementById("unLoginCommit").onclick = function () {
+            alert("您尚未登录，请先登录后评论")
+        }
+    });
+
 </script>
 </html>
