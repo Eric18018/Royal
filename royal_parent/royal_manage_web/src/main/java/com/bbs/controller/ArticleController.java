@@ -25,7 +25,7 @@ public class ArticleController {
     @RequestMapping("/findAll.do")
     public ModelAndView findAll()throws Exception{
         ModelAndView mv = new ModelAndView();
-        List<Article> list = articleService.findAll();
+        List<Article> list = articleService.findAllArticles();
         mv.addObject("articleList",list);
         mv.setViewName("articleId-list");
         return mv;
