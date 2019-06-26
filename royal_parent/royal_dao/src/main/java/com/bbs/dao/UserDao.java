@@ -1,6 +1,7 @@
 package com.bbs.dao;
 
 import com.bbs.domain.User;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
@@ -17,8 +18,23 @@ public interface UserDao {
     @Select("select * from bbs_user_table")
     public List<User> findAll();
 
-    @Select("select * from bbs_user_table where userName = #{username}")
-    public List<User> findByUsername(String username);
+
+    /**
+     * 保存用户注册信息的方法
+     * @param user
+     * @return
+     */
+    @Insert("insert into bbs_user_table(userName,userPass,email,picUrl,role,lastLoginTime,loginStatus,talkStatus,isupdating,updateStatus) values(#{userName},#{userPass},#{email},#{picUrl},#{role},#{lastLoginTime},#{loginStatus},#{talkStatus},#{isupdating},#{updateStatus})")
+    void saveRegister(User user);
+
+
+    /**
+     * 查询数据库是否有该用户名的方法
+     * @param username
+     * @return
+     */
+    @Select("select *from bbs_user_table where userName = #{userName}")
+    User findByUsername(String username);
 
 
     /**
