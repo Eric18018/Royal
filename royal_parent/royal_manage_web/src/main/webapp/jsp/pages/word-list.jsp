@@ -96,19 +96,7 @@
                             总共${pageInfo.pages}页，共${pageInfo.total}条数据
                         </div>
                     </div>
-                    <%--<div class="box-tools pull-right"><br>--%>
-                    <%--<ul class="pagination">--%>
-                    <%--<li><a href="#" aria-label="Previous">首页</a></li>--%>
-                    <%--<li><a href="#">上一页</a></li>--%>
-                    <%--<li><a href="#">1</a></li>--%>
-                    <%--<li><a href="#">2</a></li>--%>
-                    <%--<li><a href="#">3</a></li>--%>
-                    <%--<li><a href="#">4</a></li>--%>
-                    <%--<li><a href="#">5</a></li>--%>
-                    <%--<li><a href="#">下一页</a></li>--%>
-                    <%--<li><a href="#" aria-label="Next">尾页</a></li>--%>
-                    <%--</ul>--%>
-                    <%--</div>--%>
+
                     <div class="box-tools pull-right">
                         <ul class="pagination">
                             <li>
