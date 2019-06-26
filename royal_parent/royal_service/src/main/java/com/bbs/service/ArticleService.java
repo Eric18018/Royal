@@ -12,4 +12,8 @@ public interface ArticleService {
     void deleteByArticleId(Integer articleId) throws Exception;
 
 	List<Article> findAllArticles();
+
+	List<Article> findArticlesByZoneId(Integer zoneId);
+
+
 }

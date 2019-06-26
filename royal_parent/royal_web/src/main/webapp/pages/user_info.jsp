@@ -61,7 +61,7 @@
             <div class="user-info-l l">
                 <div class="user-info-l-t">
                     <img src="../images/ico.png"/>
-                    <div class="username">张无忌</div>
+                    <div class="username">${user.userName}</div>
                 </div>
                 <ul class="user-info-l-b">
                     <li class="cur"><i class="info-icon"></i>我的资料</li>

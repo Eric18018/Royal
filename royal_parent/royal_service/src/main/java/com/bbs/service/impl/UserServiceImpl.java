@@ -40,6 +40,17 @@ public class UserServiceImpl implements UserService {
         return  userDao.findByUsername(username);
     }
 
+    /**
+     * 根据用户名和密码查询user对象的方法
+     * @param userName
+     * @param userPass
+     * @return
+     */
+    @Override
+    public User findByNameAndPass(String userName, String userPass) {
+        return userDao.findByNameAndPass(userName, userPass);
+    }
+
     @Override
     public List<User> findAll() {
         return userDao.findAll();

@@ -16,33 +16,8 @@
 </head>
 <body>
 <!-- 头部 -->
-<div class="hm-top-nav">
-    <div class="hm-inner clearfix">
-        <div class="hm-inner-l l">
-        </div>
-        <div class="hm-inner-r r">
-            <div class="box">
-                欢迎<a href="user_info.html" style="margin-right:0px;padding:0px 5px;color:blue;">scott</a>回来！
-                <a href="#">【注销】</a>
-                <div id="dialogBg"></div>
-                <div id="dialog" class="animated">
-                    <img class="dialogIco" width="50" height="40" src="images/ico.png"/>
-                    <div class="dialogTop" style="height:25px;">
-                        <a href="javascript:;" class="closeDialogBtn">关闭</a>
-                    </div>
-                    <form action="" method="post">
-                        <ul class="editInfos">
-                            <li>用户名：<input type="text" id="userName" name="userName" class="ipt"/></li>
-                            <li>密&nbsp;&nbsp;&nbsp;码：<input type="password" id="userPass" name="userPass" class="ipt"/></li>
-                            <li><input type="submit" value="登录" class="submitBtn"/></li>
-                        </ul>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
+<jsp:include page="header.jsp"/>
 
 
 <div class="hm-header"></div>

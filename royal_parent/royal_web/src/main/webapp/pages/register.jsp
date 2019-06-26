@@ -136,32 +136,8 @@
 </head>
 <body>
 <!-- 头部 -->
-<div class="hm-top-nav">
-    <div class="hm-inner clearfix">
-        <div class="hm-inner-l l">
-        </div>
-        <div class="hm-inner-r r">
-            <div class="box">
-                <a href="javascript:;" id="login" class="to-login">游客登录</a>
-                <a href="">【新用户注册】</a>
-                <div id="dialogBg"></div>
-                <div id="dialog" class="animated">
-                    <img class="dialogIco" width="50" height="40" src="../images/ico.png"/>
-                    <div class="dialogTop" style="height:25px;">
-                        <a href="javascript:;" class="closeDialogBtn">关闭</a>
-                    </div>
-                    <form action=" " method="post" >
-                        <ul class="editInfos">
-                            <li>用户名：<input type="text" name="userName" class="ipt"/></li>
-                            <li>密&nbsp;&nbsp;&nbsp;码：<input type="password" name="userPass" class="ipt"/></li>
-                            <li><input type="submit" value="登录" class="submitBtn"/></li>
-                        </ul>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+<jsp:include page="header.jsp"/>
 
 
 <div class="hm-header">
@@ -179,7 +155,7 @@
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="index.html">首页</a><span>></span>注册页面
+            <a href="/article/findIndexContent.do">首页</a><span>></span>注册页面
         </div>
     </div>
 </div>
@@ -267,15 +243,6 @@
         });
 
 
-        //验证用户名;
-        // function checkUserName() {
-        //     var userName = $("#userName").val();
-        //     var userName_Reg ="/^[a-zA-Z0-9_]+$/";
-        //     var boolean = userName_Reg.test(userName);
-        //     if (boolean){
-        //         alert(userName);
-        //     }
-        // }
     });
 </script>
 <!--引入尾部-->

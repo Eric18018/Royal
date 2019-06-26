@@ -39,4 +39,11 @@ public interface ArticleDao {
 	@Select("select * from bbs_article_table")
 	List<Article> findAllArticles();
 
+	/**
+	 * 查询板块id查询对应帖子
+	 * @return
+	 */
+	@Select("select * from bbs_article_table where zoneId=#{zoneId}")
+	List<Article> findArticlesByZoneId(Integer zoneId);
+
 }

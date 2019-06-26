@@ -25,7 +25,9 @@ public class ArticleController {
     @RequestMapping("/findIndexContent.do")
     public ModelAndView findIndexContent() {
         ModelAndView mv = new ModelAndView();
-        List<Article> articles = articleService.findAllArticles();
+        //首页默认展示第一个板块
+        Integer zoneId = 1;
+        List<Article> articles = articleService.findArticlesByZoneId(zoneId);
         List<Zone> zones = zoneService.findAllZones();
         mv.addObject("articles", articles);
         mv.addObject("zones", zones);
@@ -55,6 +57,23 @@ public class ArticleController {
 		Article article = articleService.findByArticleId(articleId);
 		mv.addObject("article", article);
 		mv.setViewName("getArticle");
+        return mv;
+    }
+
+    /**
+     * 根据板块Id查找对应文章
+     * @param zoneId
+     * @return
+     */
+    @RequestMapping("/findArticlesByZoneId.do")
+    public ModelAndView findArticlesByZoneId(Integer zoneId) {
+        ModelAndView mv = new ModelAndView();
+        List<Article> articles = articleService.findArticlesByZoneId(zoneId);
+        List<Zone> zones = zoneService.findAllZones();
+        mv.addObject("articles", articles);
+        mv.addObject("zones", zones);
+        mv.addObject("currentZoneId", zoneId);
+        mv.setViewName("main");
         return mv;
     }
 

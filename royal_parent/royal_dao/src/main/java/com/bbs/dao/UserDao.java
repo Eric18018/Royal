@@ -2,6 +2,7 @@ package com.bbs.dao;
 
 import com.bbs.domain.User;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
@@ -48,4 +49,13 @@ public interface UserDao {
     //更改密码
     @Update("update bbs_user_table set userPass = #{passWord} where userId=#{userId}")
     void upDatePassWord(String passWord);
+
+    /**
+     * 根据用户名和密码查询user对象的方法
+     * @param userName
+     * @param userPass
+     * @return
+     */
+    @Select("select * from bbs_user_table where userName=#{userName} and userPass=#{userPass}")
+	User findByNameAndPass(@Param("userName")String userName, @Param("userPass")String userPass);
 }

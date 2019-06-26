@@ -17,33 +17,8 @@
     <script type="text/javascript" src="../js/hm-bbs.js"></script>
 </head>
 <body>
-<!-- 头部 -->
-<div class="hm-top-nav">
-    <div class="hm-inner clearfix">
-        <div class="hm-inner-l l"></div>
-        <div class="hm-inner-r r">
-            <div class="box">
-                <a href="javascript:;" id="login" class="to-login">游客登录</a>
-                <a href="/pages/register.jsp">【新用户注册】</a>
-                <div id="dialogBg"></div>
-                <div id="dialog" class="animated">
-                    <img class="dialogIco" width="50" height="40" src="../images/ico.png"/>
-                    <div class="dialogTop" style="height:25px;">
-                        <a href="javascript:;" class="closeDialogBtn">关闭</a>
-                    </div>
-                    <form action="user/login.do" >
-                        <ul class="editInfos">
-                            <li>用户名：<input type="text" id="userName" name="userName" class="ipt"/></li>
-                            <li>密&nbsp;&nbsp;&nbsp;码：<input type="password" id="userPass" name="userPass" class="ipt"/></li>
-                            <li><input type="submit" value="登录" class="submitBtn"/></li>
-                        </ul>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
+<jsp:include page="header.jsp"/>
 
 <!-- 主体部分 -->
 <div class="hm-header"></div>
@@ -78,8 +53,9 @@
         <!-- 导航 -->
         <ul class="hm-bbs-nav border-lrb clearfix">
             <c:forEach items="${zones}" var="zone">
-                <li <%--class="current" 选中zone的显示式样，待后期完善--%>>
-                    <a href="#"><em></em>${zone.zoneName}</a>
+
+                <li <c:if test= "${zone.zoneId == currentZoneId}">class="current"</c:if> >
+                    <a href=/article/findArticlesByZoneId.do?zoneId=${zone.zoneId}><em></em>${zone.zoneName}</a>
                 </li>
             </c:forEach>
         </ul>
@@ -93,7 +69,7 @@
                     <c:if test= "${article.isTop == '1'}">
                         <li class="clearfix ding">
                             <div class="hm-index-title">
-                                <i class="set-to-top">顶</i> <a href="getArticle.html">${article.title}</a>
+                                <i class="set-to-top">顶</i> <a href=/article/findByArticleId.do?articleId=${article.articleId}>${article.title}</a>
                             </div>
                             <div class="hm-index-con">${article.content}</div>
                             <div class="hm-index-info l">
@@ -112,7 +88,7 @@
                     <c:if test="${article.isTop == '0'}">
                         <li class="clearfix">
                             <div class="hm-index-title">
-                                <i class="set-to-top">顶</i> <a href="getArticle.html">${article.title}</a>
+                                <i class="set-to-top">顶</i> <a href=/article/findByArticleId.do?articleId=${article.articleId}>${article.title}</a>
                             </div>
                             <div class="hm-index-con">${article.content}</div>
                             <div class="hm-index-info l">

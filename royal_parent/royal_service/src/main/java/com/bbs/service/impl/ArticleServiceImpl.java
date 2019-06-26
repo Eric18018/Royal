@@ -61,4 +61,14 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<Article> findAllArticles() {
 		return articleDao.findAllArticles();
 	}
+
+	/**
+	 * 根据板块id查找对应文章
+	 * @param zoneId
+	 * @return
+	 */
+	@Override
+	public List<Article> findArticlesByZoneId(Integer zoneId) {
+		return articleDao.findArticlesByZoneId(zoneId);
+	}
 }
