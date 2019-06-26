@@ -16,6 +16,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleDao articleDao;
 
+
     /**
      * 保存发帖
      * @param article
@@ -33,6 +34,13 @@ public class ArticleServiceImpl implements ArticleService {
         //登录功能未完成，暂时手动输入用户名
         article.setSenderName("Tom");
         articleDao.save(article);
+
+    }
+
+    //删帖功能
+    @Override
+    public void deleteByArticleId(Integer articleId) throws Exception {
+        articleDao.deleteByArticleId(articleId);
     }
 
 	/**

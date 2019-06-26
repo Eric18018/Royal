@@ -176,6 +176,12 @@
             <version>${spring.security.version}</version>
         </dependency>
 
+        <!--分页查询-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.1.2</version>
+        </dependency>
     </dependencies>
 
     <build>

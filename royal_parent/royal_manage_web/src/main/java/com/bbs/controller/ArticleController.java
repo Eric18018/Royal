@@ -1,15 +1,13 @@
 package com.bbs.controller;
 
 import com.bbs.domain.Article;
-import com.bbs.service.ArticleService;
-import com.bbs.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.bbs.service.ArticleService;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.List;
-
 @Controller
 @RequestMapping("/article")
 public class ArticleController {
@@ -29,5 +27,12 @@ public class ArticleController {
         mv.addObject("articleList",list);
         mv.setViewName("articleId-list");
         return mv;
+    }
+
+    //删帖功能
+    @RequestMapping("/deleteByArticleId.do")
+    public String deleteByArticleId (@RequestParam(name = "articleId" ,required = true) Integer articleId) throws Exception{
+        articleService.deleteByArticleId(articleId);
+        return "redirect:findAll.do";
     }
 }

@@ -1,5 +1,6 @@
 package com.bbs.dao;
 
+import org.apache.ibatis.annotations.Delete;
 import com.bbs.domain.Article;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
@@ -26,6 +27,10 @@ public interface ArticleDao {
 	 */
 	@Select("select * from bbs_article_table where articleId=#{articleId}")
 	Article findByArticleId(Integer articleId);
+
+    //根据articleId删帖
+    @Delete("DELETE FROM bbs_article_table WHERE articleId = #{articleId}")
+    void deleteByArticleId(Integer articleId);
 
 	/**
 	 * 查询所有帖子的方法

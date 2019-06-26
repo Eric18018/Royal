@@ -28,7 +28,7 @@
                     <property name="properties">
                         <props>
                             <!--指定数据库-->
-                            <prop key="helperDialect">oracle</prop>
+                            <prop key="helperDialect">mysql</prop>
                             <!--配置页码不越界-->
                             <prop key="reasonable">true</prop>
                         </props>

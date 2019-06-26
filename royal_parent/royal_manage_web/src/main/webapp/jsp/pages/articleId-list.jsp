@@ -65,7 +65,7 @@
                             <td>${article.browseCount}</td>
                             <td>${article.zoneId}</td>
                                     <td>
-                                        <a href="${pageContext.request.contextPath}/article/deleteByArticleId.do?id=${article.articleId}"
+                                        <a href="/article/deleteByArticleId.do?articleId=${article.articleId}"
                                            class="btn btn-primary btn-xs">屏蔽</a>
                                         <a href="${pageContext.request.contextPath}/article/findById?id=${article.articleId}"
                                            class="btn btn-info btn-xs">取消</a>
