@@ -29,4 +29,17 @@ public class WordServiceImpl implements WordService {
         PageHelper.startPage(page, size);
         return wordDao.findAll();
     }
+
+    /**
+     * 敏感词汇开启关闭功能
+     */
+    @Override
+    public void updateBywordId(Integer wordId, Integer status) throws Exception {
+        if (status == 0) {
+            status = 1;
+        } else {
+            status = 0;
+        }
+        wordDao.updateBywordId(wordId, status);
+    }
 }

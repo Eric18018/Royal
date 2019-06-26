@@ -15,4 +15,9 @@ public interface WordService {
      * @throws Exception
      */
     List<Word> findAll(Integer page, Integer size) throws Exception;
+
+    /**
+     * 敏感词汇开启关闭功能
+     */
+    void updateBywordId(Integer wordId, Integer status) throws Exception;
 }

@@ -36,4 +36,14 @@ public class WordController {
         mv.setViewName("word-list");
         return mv;
     }
+
+    /**
+     * 敏感词汇开启关闭功能
+     */
+    @RequestMapping("/updateBywordId.do")
+    public String updateBywordId (@RequestParam(name = "wordId", required = true) Integer wordId,
+                                  @RequestParam(name = "status", required = true) Integer status) throws Exception{
+        wordService.updateBywordId(wordId,status);
+        return "redirect:findAll.do";
+    }
 }

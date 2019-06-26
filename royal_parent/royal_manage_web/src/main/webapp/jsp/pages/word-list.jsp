@@ -5,7 +5,6 @@
 <head>
     <title>王者荣耀论坛管理系统</title>
 
-
 </head>
 <body>
 <div class="hrms_container">
@@ -29,10 +28,10 @@
                 <hr>
 
                 <%--工具栏--%>
-                <form>
-                    <button type="button" class="btn btn-primary " href="#">新增敏感词汇</button>
 
-                </form>
+                <button type="button" class="btn btn-primary " href="javascript:">新增敏感词汇</button>
+
+
                 <hr>
                 <%--表格--%>
                 <div class="box-body"></div>
@@ -51,12 +50,16 @@
                             <td>${words.wordId}</td>
                             <td>${words.word }</td>
                             <td>${words.statusStr }</td>
-                                    <td>
-                                        <a href="${pageContext.request.contextPath}/article/findById?id=${article.articleId}"
-                                           class="btn btn-info btn-xs">启用</a>
-                                        <a href="${pageContext.request.contextPath}/article/findById?id=${article.articleId}"
-                                           class="btn btn-danger btn-xs">停用</a>
-                                    </td>
+                            <td>
+                                <c:if test="${words.status==0}">
+                                    <a href="${pageContext.request.contextPath}/word/updateBywordId.do?wordId=${words.wordId}&status=${words.status}"
+                                       class="btn btn-info btn-xs">启用</a>
+                                </c:if>
+                                <c:if test="${words.status==1}">
+                                <a href="${pageContext.request.contextPath}/word/updateBywordId.do?wordId=${words.wordId}&status=${words.status}"
+                                   class="btn btn-danger btn-xs">停用</a>
+                                </c:if>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -72,45 +75,51 @@
                         </div>
                     </div>
                     <%--<div class="box-tools pull-right"><br>--%>
-                        <%--<ul class="pagination">--%>
-                            <%--<li><a href="#" aria-label="Previous">首页</a></li>--%>
-                            <%--<li><a href="#">上一页</a></li>--%>
-                            <%--<li><a href="#">1</a></li>--%>
-                            <%--<li><a href="#">2</a></li>--%>
-                            <%--<li><a href="#">3</a></li>--%>
-                            <%--<li><a href="#">4</a></li>--%>
-                            <%--<li><a href="#">5</a></li>--%>
-                            <%--<li><a href="#">下一页</a></li>--%>
-                            <%--<li><a href="#" aria-label="Next">尾页</a></li>--%>
-                        <%--</ul>--%>
+                    <%--<ul class="pagination">--%>
+                    <%--<li><a href="#" aria-label="Previous">首页</a></li>--%>
+                    <%--<li><a href="#">上一页</a></li>--%>
+                    <%--<li><a href="#">1</a></li>--%>
+                    <%--<li><a href="#">2</a></li>--%>
+                    <%--<li><a href="#">3</a></li>--%>
+                    <%--<li><a href="#">4</a></li>--%>
+                    <%--<li><a href="#">5</a></li>--%>
+                    <%--<li><a href="#">下一页</a></li>--%>
+                    <%--<li><a href="#" aria-label="Next">尾页</a></li>--%>
+                    <%--</ul>--%>
                     <%--</div>--%>
                     <div class="box-tools pull-right">
                         <ul class="pagination">
                             <li>
-                                <a href="${pageContext.request.contextPath}/word/findAll.do?page=1&size=${pageInfo.pageSize}" aria-label="Previous">首页</a>
+                                <a href="${pageContext.request.contextPath}/word/findAll.do?page=1&size=${pageInfo.pageSize}"
+                                   aria-label="Previous">首页</a>
                             </li>
-                            <li><a href="${pageContext.request.contextPath}/word/findAll.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">上一页</a></li>
-                            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-                                <li><a href="${pageContext.request.contextPath}/word/findAll.do?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a></li>
-                            </c:forEach>
-                            <li><a href="${pageContext.request.contextPath}/word/findAll.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">下一页</a></li>
                             <li>
-                                <a href="${pageContext.request.contextPath}/word/findAll.do?page=${pageInfo.pages}&size=${pageInfo.pageSize}" aria-label="Next">尾页</a>
+                                <a href="${pageContext.request.contextPath}/word/findAll.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">上一页</a>
+                            </li>
+                            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/word/findAll.do?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a>
+                                </li>
+                            </c:forEach>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/word/findAll.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">下一页</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/word/findAll.do?page=${pageInfo.pages}&size=${pageInfo.pageSize}"
+                                   aria-label="Next">尾页</a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                </div>
+            </div>
 
 
-            </div><!-- /.panel -->
-        </div><!-- /.hrms_main_ad -->
-    </div><!-- /.hrms_body -->
-    <!-- 尾部 -->
-    <%@ include file="../commom/foot.jsp" %>
-
-
+        </div><!-- /.panel -->
+    </div><!-- /.hrms_main_ad -->
+</div><!-- /.hrms_body -->
+<!-- 尾部 -->
+<%@ include file="../commom/foot.jsp" %>
 
 </body>
 </html>
