@@ -4,6 +4,13 @@
 <html>
 <head>
     <title>王者荣耀论坛管理系统</title>
+
+    <style type="text/css">
+        .seek{
+            border: 1px solid gainsboro;
+            border-radius: 5px 5px 5px 5px;
+        }
+    </style>
 </head>
 <body>
 <div class="hrms_container">
@@ -29,8 +36,8 @@
                 <%--搜索栏--%>
                 <form>
 
-                    <b>用户名：</b><input type="text" class="dropdown-toggle">
-                    <b>用户组：</b><input type="text" class="dropdown-toggle">
+                    <b>标题：</b><input type="text" class="dropdown-toggle seek">
+                    <b>创贴人：</b><input type="text" class="dropdown-toggle seek">
 
 
                     <button type="button" class="btn btn-primary btn-xs" href="#">查询</button>
@@ -54,7 +61,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${articleList}" var="article">
+                    <c:forEach items="${pageInfo.list}" var="article">
                         <tr>
                             <td>${article.title}</td>
                             <td>${article.content }</td>
@@ -65,12 +72,16 @@
                             <td>${article.browseCount}</td>
                             <td>${article.zoneId}</td>
                                     <td>
-                                        <a href="/article/deleteByArticleId.do?articleId=${article.articleId}"
+                                        <a href="${pageContext.request.contextPath}/article/deleteByArticleId.do?articleId=${article.articleId}"
                                            class="btn btn-primary btn-xs">屏蔽</a>
-                                        <a href="${pageContext.request.contextPath}/article/findById?id=${article.articleId}"
+                                        <c:if test="${article.isTop == 1}">
+                                        <a href="${pageContext.request.contextPath}/article/updateByArticleId.do?articleId=${article.articleId}&isTop=${article.isTop}"
                                            class="btn btn-info btn-xs">取消</a>
-                                        <a href="${pageContext.request.contextPath}/article/findById?id=${article.articleId}"
+                                        </c:if>
+                                        <c:if test="${article.isTop == 0}">
+                                        <a href="${pageContext.request.contextPath}/article/updateByArticleId.do?articleId=${article.articleId}&isTop=${article.isTop}"
                                            class="btn btn-danger btn-xs">置顶</a>
+                                        </c:if>
                                     </td>
                         </tr>
                     </c:forEach>
@@ -78,26 +89,35 @@
                 </table>
 
                 <%--页码--%>
-
-
                 <div class="box-footer">
                     <div class="pull-left">
                         <div class="form-group form-inline">
                             <br>
-                            总共2 页，共14 条数据
+                            总共${pageInfo.pages}页，共${pageInfo.total}条数据
                         </div>
                     </div>
-                    <div class="box-tools pull-right"><br>
+
+                    <div class="box-tools pull-right">
                         <ul class="pagination">
-                            <li><a href="#" aria-label="Previous">首页</a></li>
-                            <li><a href="#">上一页</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">下一页</a></li>
-                            <li><a href="#" aria-label="Next">尾页</a></li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/article/findAll.do?page=1&size=${pageInfo.pageSize}"
+                                   aria-label="Previous">首页</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/article/findAll.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">上一页</a>
+                            </li>
+                            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/article/findAll.do?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a>
+                                </li>
+                            </c:forEach>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/article/findAll.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">下一页</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/article/findAll.do?page=${pageInfo.pages}&size=${pageInfo.pageSize}"
+                                   aria-label="Next">尾页</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

@@ -1,10 +1,7 @@
 package com.bbs.dao;
 
-import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.*;
 import com.bbs.domain.Article;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -32,12 +29,6 @@ public interface ArticleDao {
     @Delete("DELETE FROM bbs_article_table WHERE articleId = #{articleId}")
     void deleteByArticleId(Integer articleId);
 
-	/**
-	 * 查询所有帖子的方法
-	 * @return
-	 */
-	@Select("select * from bbs_article_table")
-	List<Article> findAllArticles();
 
 	/**
 	 * 查询板块id查询对应帖子
@@ -46,4 +37,24 @@ public interface ArticleDao {
 	@Select("select * from bbs_article_table where zoneId=#{zoneId}")
 	List<Article> findArticlesByZoneId(Integer zoneId);
 
+	/**
+	 * 查询所有帖子
+	 *
+	 * @param page 总页数
+	 * @param size 当前页数量
+	 * @return
+	 * @throws Exception
+	 */
+	@Select("select * from bbs_article_table")
+    List<Article> findAll(Integer page, Integer size);
+
+	/**
+	 * 置顶功能的开启和关闭
+	 * @param articleId  贴子id
+	 * @param isTop      置顶状态
+	 * @return
+	 * @throws Exception
+	 */
+	@Update("update bbs_article_table set isTop = #{isTop} where articleId = #{articleId}")
+	void updateByArticleId(@Param("articleId") Integer articleId,@Param("isTop") Integer isTop);
 }
