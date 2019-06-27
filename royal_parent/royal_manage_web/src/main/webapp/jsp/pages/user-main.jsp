@@ -4,6 +4,13 @@
 <html>
 <head>
     <title>王者荣耀论坛管理系统</title>
+
+    <style type="text/css">
+        .seek {
+            border: 1px solid gainsboro;
+            border-radius: 5px 5px 5px 5px;
+        }
+    </style>
 </head>
 <body>
 <div class="hrms_container">
@@ -23,32 +30,24 @@
                     <li><a href="#">用户管理</a></li>
                     <li class="active">用户信息</li>
                 </ol>
-
                 <hr>
-
                 <%--搜索栏--%>
                 <form action="${pageContext.request.contextPath}/user/findByUsernameAndRole.do">
 
                     <div class="dropdown">
-                    <b>用户名：</b><input type="text" class="dropdown-toggle" name="name">
-                    <%--<b>用户组：</b><input type="text" class="dropdown-toggle" name="role">--%>
+                        <b>用户名：</b><input type="text" class="dropdown-toggle seek " name="name">
+                        <%--<b>用户组：</b><input type="text" class="dropdown-toggle" name="role">--%>
 
-                        <button type="button" class="btn dropdown-toggle" id="dropdownMenu1"
-                                data-toggle="dropdown" name="role">
-                            请输入用户组
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                            <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/user/findByUsernameAndRole.do?role=1">普通用户</a>
-                            </li>
-                            <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/user/findByUsernameAndRole.do?role=2">高级用户</a>
-                            </li>
-                            <li role="presentation">
-                                <a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/user/findByUsernameAndRole.do?role=3">超级管理员</a>
-                            </li>
-                        </ul>
+                        <b>用户组：</b><input type="text" list="roles" class="seek">
+                        <datalist id="roles">
+                            <option value="普通用户"
+                                    href="${pageContext.request.contextPath}/user/findByUsernameAndRole.do?role=1">
+                            <option value="高级用户"
+                                    href="${pageContext.request.contextPath}/user/findByUsernameAndRole.do?role=2">
+                            <option value="超级管理员"
+                                    href="${pageContext.request.contextPath}/user/findByUsernameAndRole.do?role=2">
+                        </datalist>
+
                         <button type="submit" class="btn btn-primary btn-xs" href="#">查询</button>
                     </div>
 
@@ -69,7 +68,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${userList}" var="user">
+                    <c:forEach items="${pageInfo.list}" var="user">
                         <tr>
                             <td>${user.userName }</td>
                             <td>${user.roleStr }</td>
@@ -77,9 +76,24 @@
                             <td>${user.talkStatusStr }</td>
                             <td>${user.lastLoginTimeStr }</td>
                             <td>
-                                        <a href="/article/deleteByArticleId.do?articleId=${article.articleId}"
-                                           class="btn btn-primary btn-xs">升级</a>
-                                    </td>
+                                <c:if test="${user.updateStatus == 0 && user.isupdating == 1 && user.role == 1}">
+                                <a href="${pageContext.request.contextPath}/user/updateByUserId.do?userId=${user.userId}&role=${user.role}"
+                                   class="btn btn-primary btn-xs">升级</a>
+                                </c:if>
+                                <c:if test="${user.role == 2}">
+                                <a href="${pageContext.request.contextPath}/user/updateByUserId.do?userId=${user.userId}&role=${user.role}"
+                                   class="btn btn-warning btn-xs">降级</a>
+                                </c:if>
+
+                                <c:if test="${user.talkStatus == 0 && user.role != 3}">
+                                    <a href="${pageContext.request.contextPath}/user/stopByUserId.do?userId=${user.userId}&talkStatus=${user.talkStatus}"
+                                       class="btn btn-danger btn-xs">禁言</a>
+                                </c:if>
+                                <c:if test="${user.talkStatus == 1 && user.role != 3}">
+                                    <a href="${pageContext.request.contextPath}/user/stopByUserId.do?userId=${user.userId}&talkStatus=${user.talkStatus}"
+                                       class="btn btn-info btn-xs">取消</a>
+                                </c:if>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -87,25 +101,35 @@
 
                 <%--页码--%>
 
-
                 <div class="box-footer">
                     <div class="pull-left">
                         <div class="form-group form-inline">
                             <br>
-                            总共2 页，共14 条数据
+                            当前第 ${pageInfo.pageNum} 页.总共${pageInfo.pages}页，共${pageInfo.total}条数据
                         </div>
                     </div>
-                    <div class="box-tools pull-right"><br>
+
+                    <div class="box-tools pull-right">
                         <ul class="pagination">
-                            <li><a href="#" aria-label="Previous">首页</a></li>
-                            <li><a href="#">上一页</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">下一页</a></li>
-                            <li><a href="#" aria-label="Next">尾页</a></li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/user/findAll.do?page=1&size=${pageInfo.pageSize}"
+                                   aria-label="Previous">首页</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}">上一页</a>
+                            </li>
+                            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a>
+                                </li>
+                            </c:forEach>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}">下一页</a>
+                            </li>
+                            <li>
+                                <a href="${pageContext.request.contextPath}/user/findAll.do?page=${pageInfo.pages}&size=${pageInfo.pageSize}"
+                                   aria-label="Next">尾页</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

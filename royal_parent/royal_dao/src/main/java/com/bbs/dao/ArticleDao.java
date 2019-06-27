@@ -64,13 +64,9 @@ public interface ArticleDao {
 	/**
 	 * 查询所有帖子
 	 *
-	 * @param page 总页数
-	 * @param size 当前页数量
-	 * @return
-	 * @throws Exception
 	 */
 	@Select("select * from bbs_article_table")
-	List<Article> findAll(Integer page, Integer size);
+	List<Article> findAll();
 
 	/**
 	 * 置顶功能的开启和关闭

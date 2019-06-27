@@ -40,6 +40,7 @@ public class ArticleServiceImpl implements ArticleService {
         articleDao.deleteByArticleId(articleId);
     }
 
+
 	/**
 	 * 根据articleId查看帖子
 	 * @param articleId
@@ -100,7 +101,7 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<Article> findAll(Integer page, Integer size) throws Exception {
 		PageHelper.startPage(page, size);
-		return articleDao.findAll(page, size);
+		return articleDao.findAll();
 	}
 
 	/**
