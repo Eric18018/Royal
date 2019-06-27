@@ -38,7 +38,7 @@
 					         <a href="#"><i></i>3</a>
 					     </span>
                         <span class="icon-talk">
-						     <i></i>10
+						     <i></i>${countCommentsAndReplies}
 						</span>
                     </div>
                 </div>
@@ -85,14 +85,12 @@
                             </div>
                             <div class="floor-ans"></div>
                         </div>
-                        <span class="icon-comment"><a href="#comment"> <i></i> 评论</a> <a href="javascript:;" onclick="showReport()"> <i></i> 举报</a></span>
-                        <%--<span class="icon-feedback">--%>
-                               <%----%>
-                            <%--</span>--%>
+                        <span class="icon-comment"><a href="#comment"> <i></i> 评论</a></span>
                     </div>
                 </li>
 
 
+                <%--评论楼--%>
                 <c:forEach items="${comments}" var="comment" varStatus="status">
                     <li class="floor clearfix">
                         <div class="floorer-info l">
@@ -108,54 +106,35 @@
                                 <div class="floor-art">
                                     <p>${comment.commentContent}</p>
                                 </div>
-                                <span class="icon-feedback">
-                                <a href="javascript:;" onclick="showDialog(1)"> <i></i> 回复</a>
-                            </span>
 
+                                <div class="floor-ans">
+                                    <ul>
+                                        <c:forEach items="${replies}" var="entrySet">
+                                            <c:if test= "${entrySet.key == comment.commentId}">
+                                                <c:forEach items="${entrySet.value}" var="reply">
+                                                            <!-- 回复部分,楼中楼 -->
+                                                            <li class="clearfix">
+                                                                <div class="floor-ans-pho l"><img src="../images/default.png"/></div>
+                                                                <div class="floor-ans-con l">
+                                                                    <span class="name">${reply.replyUserName}</span>：${reply.replyContent}
+                                                                    <span class="ans-time">${reply.replyTimeStr}</span>
+                                                                </div>
+                                                            </li>
+                                                </c:forEach>
+                                            </c:if>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+
+
+                                <span class="icon-feedback">
+                                <a href="javascript:;" onclick="showDialog(${status.index + 1},${comment.commentId})"> <i></i> 回复</a>
+                            </span>
                             </div>
                         </div>
                     </li>
                 </c:forEach>
 
-
-
-
-                <!--样板楼-->
-                <li class="floor clearfix">
-                    <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="../images/default.png"/></div>
-                        <div class="floorer-name">不哭不闹不炫耀</div>
-                    </div>
-                    <div class="floor-con l">
-                        <div class="floor-info clearfix">
-                            <div class="floor-time l">回贴时间：2017-05-24 10:10:00</div>
-                            <div class="r">样板楼</div>
-                        </div>
-                        <div class="floor-art-ans">
-                            <div class="floor-art">
-                                <p>楼主你好，请按以下建议反馈格式回复，我们会有专人进行收集。祝你游戏愉快。</p>
-                            </div>
-                            <div class="floor-ans">
-                                <ul>
-
-                                    <!-- 回复部分,楼中楼 -->
-                                    <li class="clearfix">
-                                        <div class="floor-ans-pho l"><img src="../images/default.png"/></div>
-                                        <div class="floor-ans-con l">
-                                            <span class="name">张无忌</span>：顶顶顶！
-                                            <span class="ans-time">2017-05-24 10:11:00</span>
-                                        </div>
-                                    </li>
-
-
-                                </ul>
-                            </div>
-                            <span class="icon-feedback">
-                                <a href="javascript:;" onclick="showDialog(1)"> <i></i> 回复</a>
-                            </span>
-                        </div>
-                    </div>
-                </li>
 
             </ul>
         </div>
@@ -205,7 +184,7 @@
 
 
 <!-- 回复弹出框 -->
-<form action="" method="post">
+<form action="/reply/save.do" method="post">
     <div class="pop-box ft-box" id="huifu">
         <div class="mask"></div>
         <div class="win">
@@ -215,12 +194,21 @@
             </div>
             <div class="win_bd">
                 <div class="win_bd_b">
-                    <textarea id="replyContent" name="content" placeholder="回复内容限于40字以内"></textarea>
+                    <textarea id="replyContent" name="replyContent" placeholder="回复内容限于40字以内"></textarea>
                 </div>
             </div>
+            <input type="hidden" name="replyUserName" value="${user.userName}">
+            <input type="hidden" name="commentId" id="commentId">
             <div class="win_ft">
                 <div class="win_ft_in">
-                    <input type="submit" class="btn" value="回复"/>
+                    <%--登录后的提交按钮--%>
+                    <c:if test= "${user.userName != null}">
+                        <input type="submit" class="btn" value="回复"/>
+                    </c:if>
+                    <%--未登录的提交按钮--%>
+                    <c:if test= "${user.userName == null}">
+                        <input id="unLoginReply" class="btn" value="回复">
+                    </c:if>
                 </div>
             </div>
         </div>
@@ -261,13 +249,19 @@
 
 <script type="text/javascript">
     //弹出回复框
-    function showDialog(num) {
+    function showDialog(num,commentId) {
         $('#huifu').css('display', 'block');
+        $("#commentId").val(commentId);
+        $('.pop-box').css('display', 'block');
         $("#floorSpan").html(num);
     }
     $(function () {
         document.getElementById("unLoginCommit").onclick = function () {
             alert("您尚未登录，请先登录后评论")
+        }
+
+        document.getElementById("unLoginReply").onclick = function () {
+            alert("您尚未登录，请先登录后回复")
         }
     });
     //弹出举报框

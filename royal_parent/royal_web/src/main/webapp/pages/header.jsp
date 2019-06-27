@@ -3,7 +3,33 @@
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<head>
+    <script>
 
+        $(function () {
+            $("#submit").click(checkLogin);
+
+            function checkLogin() {
+                var userName = $("#userName").val();
+                var userPass = $("#userPass").val();
+
+                $.post("${pageContext.request.contextPath}/user/login.do",{"userName":userName,"userPass":userPass},function(data){
+                    if(data == "false"){
+                        alert("登录失败，请重新登录");
+                    }else{
+                        //登录成功
+                        alert("登录成功");
+                        window.location.reload();
+                    }
+                });
+
+            }
+        });
+
+
+
+    </script>
+</head>
 
 <!-- 头部 -->
 <div class="hm-top-nav">
@@ -27,11 +53,12 @@
                     <div class="dialogTop" style="height:25px;">
                         <a href="javascript:;" class="closeDialogBtn">关闭</a>
                     </div>
-                    <form action="${pageContext.request.contextPath}/user/login.do" >
+                    <%--<form action="${pageContext.request.contextPath}/user/login.do" >--%>
+                    <form action="#" >
                         <ul class="editInfos">
                             <li>用户名：<input type="text" id="userName" name="userName" class="ipt"/></li>
                             <li>密&nbsp;&nbsp;&nbsp;码：<input type="password" id="userPass" name="userPass" class="ipt"/></li>
-                            <li><input type="submit" value="登录" class="submitBtn"/></li>
+                            <li><input id="submit" type="submit" value="登录" class="submitBtn"/></li>
                         </ul>
                     </form>
                 </div>

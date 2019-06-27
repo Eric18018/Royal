@@ -64,7 +64,7 @@ public interface ArticleDao {
 
 	/**
 	 * 查询所有帖子
-	 *
+	 * @return
 	 */
 	@Select("select * from bbs_article_table")
 	List<Article> findAll();
@@ -78,6 +78,13 @@ public interface ArticleDao {
 	 */
 	@Update("update bbs_article_table set isTop = #{isTop} where articleId = #{articleId}")
 	void updateByArticleId(@Param("articleId") Integer articleId,@Param("isTop") Integer isTop);
+
+	/**
+	 * 更新帖子回复数的方法
+	 * @param replyCount
+	 */
+	@Update("update bbs_article_table set replyCount=#{replyCount} where articleId = #{articleId}")
+	void updateArticleReplyCount(@Param("articleId") Integer articleId, @Param("replyCount")Integer replyCount);
 
 
 	/**

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 
 @Controller
@@ -75,19 +77,23 @@ public class UserController {
      * @return
      */
     @RequestMapping("/login.do")
+    @ResponseBody
     public String findByNameAndPass(String userName, String userPass,HttpServletRequest request) {
         User user = userService.findByNameAndPass(userName, userPass);
         if (user == null) {
-            return null;
+            return "false";
         } else {
             request.getSession().setAttribute("user", user);
-            return "redirect:/index.jsp";
+            String referer = request.getHeader("Referer");
+            return referer;
         }
     }
 
     @RequestMapping("/logout.do")
     public String logout(HttpServletRequest request) {
         request.getSession().removeAttribute("user");
-        return "redirect:/index.jsp";
-    }
+		String referer = request.getHeader("Referer");
+		return "redirect:" + referer;
+
+	}
 }

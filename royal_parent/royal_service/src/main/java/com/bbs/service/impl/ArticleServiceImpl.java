@@ -33,15 +33,14 @@ public class ArticleServiceImpl implements ArticleService {
         article.setBrowseCount(0);
         article.setIsReport(0);
         articleDao.save(article);
-    }
 
+    }
 
     //删帖功能
     @Override
     public void deleteByArticleId(Integer articleId) throws Exception {
         articleDao.deleteByArticleId(articleId);
     }
-
 
 	/**
 	 * 根据articleId查看帖子
@@ -146,5 +145,15 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<Article> findByUsernameAndTitle(String title, String name,Integer page, Integer size) {
 		PageHelper.startPage(page,size);
 		return articleDao.findByUsernameAndTitle(title,name);
+	}
+
+	/**
+	 * 更新帖子回复数的方法
+	 * @param articleId
+	 * @param replyCount
+	 */
+	@Override
+	public void updateArticleReplyCount(Integer articleId, Integer replyCount) {
+		articleDao.updateArticleReplyCount(articleId, replyCount);
 	}
 }

@@ -3,6 +3,7 @@ package com.bbs.controller;
 import com.bbs.domain.Article;
 import com.bbs.domain.Zone;
 import com.bbs.service.ArticleService;
+import com.bbs.service.ReplyService;
 import com.bbs.service.ZoneService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class ArticleController {
     ArticleService articleService;
     @Autowired
     ZoneService zoneService;
+    @Autowired
+    ReplyService replyService;
 
     /**
      * 查询所有首页元素内容的方法
@@ -67,6 +70,10 @@ public class ArticleController {
     public ModelAndView findByArticleId(Integer articleId) {
         ModelAndView mv = new ModelAndView();
 		Article article = articleService.findByArticleId(articleId);
+        //查询帖子的回复数
+        Integer countCommentsAndReplies = replyService.countCommentsAndReplies(articleId);
+
+        mv.addObject("countCommentsAndReplies", countCommentsAndReplies);
 		mv.addObject("article", article);
 		mv.setViewName("getArticle");
         return mv;

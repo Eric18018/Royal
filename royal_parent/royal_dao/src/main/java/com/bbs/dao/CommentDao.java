@@ -24,4 +24,15 @@ public interface CommentDao {
 	 */
 	@Select("select * from bbs_comment_table where articleId=#{articleId}")
 	List<Comment> findCommentsByArticleId(Integer articleId);
+
+	@Select("select articleId from bbs_comment_table where commentId=#{commentId}")
+	Integer findArticleIdByCommentId(Integer commentId);
+
+	/**
+	 * 根据帖子id查询评论总数
+	 * @param articleId
+	 * @return
+	 */
+	@Select("select count(*) from bbs_comment_table where articleId=#{articleId}")
+	Integer countCommentsByArticleId(Integer articleId);
 }

@@ -36,4 +36,15 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> findCommentsByArticleId(Integer articleId) {
         return commentDao.findCommentsByArticleId(articleId);
     }
+
+    /**
+     * 根据评论id查询帖子id的方法
+     * @param commentId
+     * @return
+     */
+    @Override
+    public Integer findArticleIdByCommentId(Integer commentId) {
+        return commentDao.findArticleIdByCommentId(commentId);
+    }
+
 }

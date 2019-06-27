@@ -44,6 +44,13 @@ public interface ArticleService {
 	void updateByArticleId(Integer articleId, Integer isTop) throws Exception;
 
 	/**
+	 * 更新帖子回复数的方法
+	 * @param articleId
+	 * @param replyCount
+	 */
+	void updateArticleReplyCount(Integer articleId, Integer replyCount);
+
+	/**
 	 * 关键字查询功能
 	 * @param msg
 	 * @return
