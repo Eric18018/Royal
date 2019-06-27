@@ -34,16 +34,16 @@
                 <span><img src="../images/bbs-icon.png" height="80"/></span>
             </div>
             <div class="hm-bbs-info-in l" style="margin-left:30px;">
-                <div class="t clearfix"><h2 class="l">王者荣耀</h2></div>
+                <div class="t clearfix"><h2 class="l"><a href="${pageContext.request.contextPath}/article/findIndexContent.do">王者荣耀</a></h2></div>
                 <p>
                     <span>今日帖子<strong>${todayArticles}</strong></span>
                     <span>全部帖子<strong>${totalArticles}</strong></span>
                 </p>
             </div>
             <div class="search-box l">
-                <form action="javascript:;">
-                    <input type="text" class="txt l" placeholder="请输入关键字">
-                    <input type="button" value="搜索" class="btn l"/>
+                <form action="${pageContext.request.contextPath}/article/findByLike.do" method="post">
+                    <input type="text" class="txt l" placeholder="请输入关键字" name="msg">
+                    <input type="submit" value="搜索" class="btn l"/>
                 </form>
             </div>
         </div>

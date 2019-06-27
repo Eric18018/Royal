@@ -41,4 +41,13 @@ public interface ArticleService {
 	 * @throws Exception
 	 */
 	void updateByArticleId(Integer articleId, Integer isTop) throws Exception;
+
+	/**
+	 * 关键字查询功能
+	 * @param msg
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+    List<Article> findByLike(String msg);
 }

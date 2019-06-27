@@ -85,7 +85,10 @@
                             </div>
                             <div class="floor-ans"></div>
                         </div>
-                        <span class="icon-comment"><a href="#comment"> <i></i> 评论</a></span>
+                        <span class="icon-comment"><a href="#comment"> <i></i> 评论</a> <a href="javascript:;" onclick="showReport()"> <i></i> 举报</a></span>
+                        <%--<span class="icon-feedback">--%>
+                               <%----%>
+                            <%--</span>--%>
                     </div>
                 </li>
 
@@ -108,6 +111,7 @@
                                 <span class="icon-feedback">
                                 <a href="javascript:;" onclick="showDialog(1)"> <i></i> 回复</a>
                             </span>
+
                             </div>
                         </div>
                     </li>
@@ -202,7 +206,7 @@
 
 <!-- 回复弹出框 -->
 <form action="" method="post">
-    <div class="pop-box ft-box">
+    <div class="pop-box ft-box" id="huifu">
         <div class="mask"></div>
         <div class="win">
             <div class="win_hd">
@@ -222,7 +226,29 @@
         </div>
     </div>
 </form>
-
+<!-- 举报弹出框 -->
+<form action="${pageContext.request.contextPath}/report/setReport.do?articleId=${article.articleId}" method="post">
+    <div class="pop-box ft-box" id="jubao">
+        <div class="mask"></div>
+        <div class="win">
+            <div class="win_hd">
+                <h4 class="l">举报</h4>
+                <span class="close r">&times;</span>
+            </div>
+            <div class="win_bd">
+                <div class="win_bd_b">
+                    <textarea id="reportContent" name="reportContent" placeholder="回复内容限于400字以内"></textarea>
+                </div>
+            </div>
+            <div class="win_ft">
+                <div class="win_ft_in">
+                    <input type="submit" class="btn" value="举报"/>
+                    <input type="hidden" id="reportUserName" name="reportUserName"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
 
 <div class="fixedBar" id="j_fixedBar">
@@ -236,7 +262,7 @@
 <script type="text/javascript">
     //弹出回复框
     function showDialog(num) {
-        $('.pop-box').css('display', 'block');
+        $('#huifu').css('display', 'block');
         $("#floorSpan").html(num);
     }
     $(function () {
@@ -244,6 +270,19 @@
             alert("您尚未登录，请先登录后评论")
         }
     });
-
+    //弹出举报框
+    function showReport(num) {
+        var user_Name = "${user.userName}";
+        var sender_Name = "${article.senderName}";
+        if(!user_Name){
+            alert("您尚未登录，请先登录后才能举报");
+            return;
+        }
+        if (user_Name == sender_Name){
+            alert("不能举报自己的帖子")
+            return;
+        }
+        $("#jubao").css('display', 'block');
+    }
 </script>
 </html>

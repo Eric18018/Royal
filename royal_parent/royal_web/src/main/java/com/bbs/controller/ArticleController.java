@@ -4,10 +4,12 @@ import com.bbs.domain.Article;
 import com.bbs.domain.Zone;
 import com.bbs.service.ArticleService;
 import com.bbs.service.ZoneService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -86,6 +88,16 @@ public class ArticleController {
         mv.setViewName("main");
         return mv;
     }
-
-
+/**
+ * 关键字查询搜索
+ */
+@RequestMapping("/findByLike.do")
+    public ModelAndView findByLike(String msg){
+        msg="%"+msg+"%";
+    ModelAndView mv = new ModelAndView();
+    List<Article> byTitle = articleService.findByLike(msg);
+    mv.addObject("articles",byTitle);
+    mv.setViewName("main");
+    return mv;
+}
 }

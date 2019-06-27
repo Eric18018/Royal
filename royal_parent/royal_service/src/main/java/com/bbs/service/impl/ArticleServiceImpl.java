@@ -120,4 +120,16 @@ public class ArticleServiceImpl implements ArticleService {
 		}
 		articleDao.updateByArticleId(articleId,isTop);
 	}
+
+	/**
+	 * 关键字查询功能
+	 * @param msg
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	@Override
+	public List<Article> findByLike(String msg) {
+		return articleDao.findByLike(msg);
+	}
 }

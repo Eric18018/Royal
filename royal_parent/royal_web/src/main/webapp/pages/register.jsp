@@ -108,6 +108,7 @@
 
                         if(data){
                             //注册成功，跳转成功页面
+                            alert("恭喜您！注册成功")
                             location.href="/index.jsp";
                         }else{
                             //注册失败,给errorMsg添加提示信息
@@ -127,7 +128,6 @@
             $("#userPass").blur(checkUserPass);
             $("#email").blur(checkEmail);
 
-
         });
 
 
@@ -137,7 +137,7 @@
 <body>
 <!-- 头部 -->
 
-<jsp:include page="header.jsp"/>
+<%--<jsp:include page="header.jsp"/>--%>
 
 
 <div class="hm-header">

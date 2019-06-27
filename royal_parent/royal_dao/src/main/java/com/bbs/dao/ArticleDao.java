@@ -77,4 +77,15 @@ public interface ArticleDao {
 	 */
 	@Update("update bbs_article_table set isTop = #{isTop} where articleId = #{articleId}")
 	void updateByArticleId(@Param("articleId") Integer articleId,@Param("isTop") Integer isTop);
+
+
+	/**
+	 * 关键字查询功能
+	 * @param msg
+	 * @param
+	 * @param
+	 * @return
+	 */
+	@Select("SELECT * FROM bbs_article_table WHERE title LIKE #{msg}")
+    List<Article> findByLike(String msg);
 }
