@@ -41,11 +41,11 @@ public class UserServiceImpl implements UserService {
      * @param username
      * @return
      */
-/*    @Override
+    @Override
     public User findByUsername(String username) {
 
         return userDao.findByUsername(username);
-    }*/
+    }
 
 
     /**

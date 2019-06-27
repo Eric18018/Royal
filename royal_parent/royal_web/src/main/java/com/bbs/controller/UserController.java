@@ -55,12 +55,12 @@ public class UserController {
         }
     }
 
-/*    *//**
+   /**
      * 查询数据库是否有该用户名的方法
      *
      * @param username
      * @return
-     *//*
+     */
     @RequestMapping("/findByUsername.do")
     @ResponseBody
     public String findByUsername(String username) {
@@ -68,7 +68,7 @@ public class UserController {
             return "true";
         }
         return "false";
-    }*/
+    }
 
     /**
      * 根据用户名和密码查询user对象的方法

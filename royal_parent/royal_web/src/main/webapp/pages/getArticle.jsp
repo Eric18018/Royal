@@ -34,9 +34,7 @@
                 <div class="t clearfix">
                     <h2 class="l">${article.title}</h2>
                     <div class="hm-detail-fun l">
-					     <span class="icon-like">
-					         <a href="#"><i></i>3</a>
-					     </span>
+
                         <span class="icon-talk">
 						     <i></i>${countCommentsAndReplies}
 						</span>
@@ -71,7 +69,7 @@
                 <!--原帖楼-->
                 <li class="floor clearfix">
                     <div class="floorer-info l">
-                        <div class="floorer-photo"><img src="../images/default.png"/></div>
+                        <div class="floorer-photo"><img src="../images/a.jpg"/></div>
                         <div class="floorer-name">${article.senderName}</div>
                     </div>
                     <div class="floor-con l">
@@ -85,7 +83,8 @@
                             </div>
                             <div class="floor-ans"></div>
                         </div>
-                        <span class="icon-comment"><a href="#comment"> <i></i> 评论</a></span>
+                        <span class="icon-comment"><a href="#comment"> <i></i> 评论&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span>
+                        <span class="icon-comment"><a href="javascript:;" onclick="showReport(1)">  举报</a></span>
                     </div>
                 </li>
 
@@ -94,7 +93,7 @@
                 <c:forEach items="${comments}" var="comment" varStatus="status">
                     <li class="floor clearfix">
                         <div class="floorer-info l">
-                            <div class="floorer-photo"><img src="../images/default.png"/></div>
+                            <div class="floorer-photo"><img src="../images/a.jpg"/></div>
                             <div class="floorer-name">${comment.commentUserName}</div>
                         </div>
                         <div class="floor-con l">
@@ -114,7 +113,7 @@
                                                 <c:forEach items="${entrySet.value}" var="reply">
                                                             <!-- 回复部分,楼中楼 -->
                                                             <li class="clearfix">
-                                                                <div class="floor-ans-pho l"><img src="../images/default.png"/></div>
+                                                                <div class="floor-ans-pho l"><img src="../images/a.jpg"/></div>
                                                                 <div class="floor-ans-con l">
                                                                     <span class="name">${reply.replyUserName}</span>：${reply.replyContent}
                                                                     <span class="ans-time">${reply.replyTimeStr}</span>
@@ -127,8 +126,8 @@
                                 </div>
 
 
-                                <span class="icon-feedback">
-                                <a href="javascript:;" onclick="showDialog(${status.index + 1},${comment.commentId})"> <i></i> 回复</a>
+                                <span class="icon-comment">
+                                <a href="javascript:;" onclick="showDialog(${status.index + 1},${comment.commentId})"><i></i>回复</a>
                             </span>
                             </div>
                         </div>
@@ -138,8 +137,8 @@
 
             </ul>
         </div>
-
         <!--发表评论-->
+        <c:if test= "${user.userName != null}">
         <div class="detail-to-comment">
             <div class="tit"><a name="comment">发表评论</a></div>
             <!-- 未登录时候显示 <div class="con">您没有登录论坛，请登录后再进行回复</div>-->
@@ -154,18 +153,15 @@
                     <input type="hidden" name="commentUserName" value="${user.userName}">
                     <div class="con-b">
                         <%--登录后的提交按钮--%>
-                        <c:if test= "${user.userName != null}">
+
                             <input type="submit" class="btn"/>
-                        </c:if>
-                        <%--未登录的提交按钮--%>
-                        <c:if test= "${user.userName == null}">
-                            <input id="unLoginCommit" class="btn" value="提交">
-                        </c:if>
+
                         <span class="num">不能超过5000字</span>
                     </div>
                 </div>
             </form>
         </div>
+        </c:if>
     </div>
 </div>
 
@@ -181,10 +177,32 @@
     </div>
 </div>
 
-
+<!-- 举报弹出框 -->
+<form action="${pageContext.request.contextPath}/report/setReport.do?articleId=${article.articleId}" method="post">
+    <div class="pop-box ft-box" id="jubao">
+        <div class="mask"></div>
+        <div class="win">
+            <div class="win_hd">
+                <h4 class="l">举报</h4>
+                <span class="close r">&times;</span>
+            </div>
+            <div class="win_bd">
+                <div class="win_bd_b">
+                    <textarea id="reportContent" name="reportContent" placeholder="回复内容限于400字以内"></textarea>
+                </div>
+            </div>
+            <div class="win_ft">
+                <div class="win_ft_in">
+                    <input type="submit" class="btn" value="举报"/>
+                    <input type="hidden" id="reportUserName" name="reportUserName"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 
 <!-- 回复弹出框 -->
-<form action="/reply/save.do" method="post">
+<form action="${pageContext.request.contextPath}/reply/save.do" method="post">
     <div class="pop-box ft-box" id="huifu">
         <div class="mask"></div>
         <div class="win">
@@ -209,29 +227,6 @@
                     <c:if test= "${user.userName == null}">
                         <input id="unLoginReply" class="btn" value="回复">
                     </c:if>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
-<!-- 举报弹出框 -->
-<form action="${pageContext.request.contextPath}/report/setReport.do?articleId=${article.articleId}" method="post">
-    <div class="pop-box ft-box" id="jubao">
-        <div class="mask"></div>
-        <div class="win">
-            <div class="win_hd">
-                <h4 class="l">举报</h4>
-                <span class="close r">&times;</span>
-            </div>
-            <div class="win_bd">
-                <div class="win_bd_b">
-                    <textarea id="reportContent" name="reportContent" placeholder="回复内容限于400字以内"></textarea>
-                </div>
-            </div>
-            <div class="win_ft">
-                <div class="win_ft_in">
-                    <input type="submit" class="btn" value="举报"/>
-                    <input type="hidden" id="reportUserName" name="reportUserName"/>
                 </div>
             </div>
         </div>
@@ -266,6 +261,7 @@
     });
     //弹出举报框
     function showReport(num) {
+
         var user_Name = "${user.userName}";
         var sender_Name = "${article.senderName}";
         if(!user_Name){

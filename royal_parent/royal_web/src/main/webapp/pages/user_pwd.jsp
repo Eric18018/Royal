@@ -21,9 +21,6 @@
     </style>
 </head>
 
-<!-- 头部 -->
-<jsp:include page="/common/header.jsp" />
-
 
 <!--头部信息-->
 <div class="hm-header">
@@ -51,15 +48,18 @@
     <div class="hm-inner">
         <div class="user-info clearfix">
             <div class="user-info-t" style="height:20px;"></div>
+
+            <!--左侧用户名，头像-->
             <div class="user-info-l l">
                 <div class="user-info-l-t">
-                    <img src="../images/ico.png" alt=""/>
-                    <div class="username">张无忌</div>
+                    <img src="${user.picUrl}"/>
+                    <div class="username">${user.userName}</div>
                 </div>
                 <ul class="user-info-l-b">
                     <li><i class="info-icon"></i>我的资料</li>
                     <li class="cur"><i class="safe-icon"></i>修改密码</li>
-                    <li><i class="safe-icon"></i>申请高级用户</li>
+                    <c:if test="${user.role==1}"><li><i class="safe-icon"></i>申请高级用户</c:if>
+                    <c:if test="${user.role==2}"> <li><i class="safe-icon"></i>开辟新板块</li></c:if>
                 </ul>
             </div>
 
@@ -68,10 +68,11 @@
                 <ul class="clearfix hd">
                     <li><a href="user_info.jsp">个人信息</a></li>
                     <li class="cur"><a href="user_pwd.jsp">修改密码</a></li>
-                    <li><a href="user_tab.jsp">申请高级用户</a></li>
+                    <c:if test="${user.role==1}"><li><a href="user_upgrade.jsp">申请高级用户</a></li></c:if>
+                    <c:if test="${user.role==2}"><li><a href="user_upgrade.jsp">开辟新板块</a></li></c:if>
 
                 </ul>
-                <form action="#" method="post">
+                <form action="${pageContext.request.contextPath}/user/updatePassWord.do" method="post" >
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l"><i class="red">*</i>旧密码：</div>
@@ -85,6 +86,7 @@
                             <div class="info-l"></div>
                             <div class="info-r">
                                 <input type="submit" class="btn" value="保存"/>
+                                <div>${result}</div>
                                 <%--<span style="color:red;">修改成功！</span>--%>
                             </div>
                         </li>

@@ -23,9 +23,6 @@
 
 
 
-<!-- 头部 -->
-<jsp:include page="/common/header.jsp" />
-
 
 <!--头部信息-->
 <div class="hm-header">
@@ -60,13 +57,15 @@
             <!--左侧用户名，头像-->
             <div class="user-info-l l">
                 <div class="user-info-l-t">
-                    <img src="../images/ico.png"/>
-                    <div class="username">张无忌</div>
+                    <img src="${user.picUrl}"/>
+                    <div class="username">${user.userName}</div>
                 </div>
                 <ul class="user-info-l-b">
                     <li><i class="safe-icon"></i>我的资料</li>
                     <li><i class="safe-icon"></i>修改密码</li>
-                    <li class="cur"><i class="info-icon"></i>申请高级用户</li>
+                    <c:if test="${user.role==1}"><li class="cur"><i class="info-icon"></i>申请高级用户</li></c:if>
+                    <c:if test="${user.role==2}"><li class="cur"><i class="info-icon"></i>开辟新板块</li></c:if>
+
                 </ul>
             </div>
 
@@ -76,29 +75,28 @@
                 <ul class="clearfix hd">
                     <li><a href="user_info.jsp">个人信息</a></li>
                     <li><a href="user_pwd.jsp">修改密码</a></li>
-                    <li class="cur"><i class="safe-icon"></i>申请高级用户</li>
+                    <c:if test="${user.role==1}"><li class="cur"><i class="safe-icon"></i>申请高级用户</li></c:if>
+                    <c:if test="${user.role==2}"><li class="cur"><i class="safe-icon"></i>开辟新板块</li></c:if>
                 </ul>
 
 
                 <form action="#" method="post" >
                     <ul class="bd">
                         <li class="clearfix">
-                            <div class="info-l"><i class="red">*</i>用户名：</div>
-                            <div class="info-r"><input type="text" class="txt" name="userName"  /></div>
+                            <div class="info-l"><i class="red">*高级特权：</i></div>
+                            <div class="info-r">开辟新板块</div>
                         </li>
                         <li class="clearfix">
-                            <div class="info-l">邮箱地址：</div>
-                            <div class="info-r"><input type="text" name="email" class="txt" /></div>
+                            <div class="info-r"><i class="red">*申请条件：</i></div>
+                            <div class="info-r">发帖数≥5</div>
                         </li>
-                        <li class="clearfix">
-                            <div class="info-l">上传头像：</div>
-                            <div class="info-r"><input type="file" name="picUrl" class="file-btn"/></div>
-                        </li>
+                        <%--<li class="clearfix">--%>
+                            <%--<div class="info-l">当前发帖数：  </div>--%>
+                        <%--</li>--%>
                         <li class="clearfix">
                             <div class="info-l"></div>
                             <div class="info-r">
-                                <input type="submit" class="btn" value="保存"/>
-                                <%--<span style="color:red;">修改成功！</span>--%>
+                                <input type="submit" class="btn" value="申请"/>
                             </div>
                         </li>
                     </ul>

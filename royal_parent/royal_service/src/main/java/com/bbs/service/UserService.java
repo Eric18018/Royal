@@ -34,7 +34,7 @@ public interface UserService extends UserDetailsService{
      * @param username
      * @return
      */
-//    User findByUsername(String username);
+    User findByUsername(String username);
 
 
     /**

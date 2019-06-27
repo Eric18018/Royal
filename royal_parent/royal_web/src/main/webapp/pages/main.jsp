@@ -107,17 +107,34 @@
             <div class="aside l">
                 <div class="aside-box">
                     <h3 class="t">
-                        <a href="javascript:;">在线用户(2)</a>
+                        <a href="javascript:;">在线用户(6)</a>
                     </h3>
                     <ul class="b clearfix">
                         <li>
-                            <div><img src="../images/default.png" height="55"/> </div>
-                            <p>Mr.King</p>
+                            <div><img src="../images/xiao.jpg" height="55"/> </div>
+                            <p>校长</p>
                         </li>
                         <li>
-                            <div><img src="../images/default.png" height="55"/></div>
-                            <p>疯子</p>
+                            <div><img src="../images/xue.jpg" height="55"/></div>
+                            <p>雪姨</p>
                         </li>
+                        <li>
+                            <div><img src="../images/chao.jpg" height="55"/> </div>
+                            <p>超哥</p>
+                        </li>
+                        <li>
+                            <div><img src="../images/nan.jpg" height="55"/> </div>
+                            <p>楠哥</p>
+                        </li>
+                        <li>
+                            <div><img src="../images/yue.jpg" height="55"/> </div>
+                            <p>玥哥</p>
+                        </li>
+                        <li>
+                            <div><img src="../images/peng.jpg" height="55"/> </div>
+                            <p>鹏哥</p>
+                        </li>
+
                     </ul>
                 </div>
             </div>

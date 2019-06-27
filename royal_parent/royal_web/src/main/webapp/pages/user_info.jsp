@@ -18,13 +18,38 @@
     <style type="text/css">
         .hm-header-b { border-bottom: 1px solid #d9d9d9; }
     </style>
+    <!--导入jquery-->
+    <script src="js/jquery-3.3.1.js"></script>
+
+    <script>
+        //校验邮箱
+        function checkEmail() {
+            //1.获取邮箱值
+            var email = $("#email").val();
+            //2.定义正则
+            var reg_email =/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+
+            //3.判断，给出提示信息
+            var flag = reg_email.test(email);
+            if(flag){
+                //邮箱合法
+                $("#email").css("border","");
+            }else{
+                //邮箱非法,加一个红色边框
+                $("#email").css("border","1px solid red");
+            }
+
+            return flag;
+        }
+
+
+        $("#email").blur(checkEmail);
+    </script>
+
 </head>
 <body>
 
 
-
-<!-- 头部 -->
-<jsp:include page="/common/header.jsp" />
 
 
 <!--头部信息-->
@@ -43,7 +68,7 @@
         </div>
         <div class="hm-header-b">
             <i class="hm-ico-home"></i>
-            <a href="${pageContext.request.contextPath}/index.jsp">首页</a><span>></span>个人信息
+            <a href="/index.jsp">首页</a><span>></span>个人信息
         </div>
     </div>
 </div>
@@ -60,13 +85,14 @@
             <!--左侧用户名，头像-->
             <div class="user-info-l l">
                 <div class="user-info-l-t">
-                    <img src="../images/ico.png"/>
+                    <img src="${user.picUrl}"/>
                     <div class="username">${user.userName}</div>
                 </div>
                 <ul class="user-info-l-b">
                     <li class="cur"><i class="info-icon"></i>我的资料</li>
                     <li><i class="safe-icon"></i>修改密码</li>
-                    <li><i class="safe-icon"></i>申请高级用户</li>
+                    <c:if test="${user.role==1}"><li><i class="safe-icon"></i>申请高级用户</c:if>
+                    <c:if test="${user.role==2}"> <li><i class="safe-icon"></i>开辟新板块</li></c:if>
                 </ul>
             </div>
 
@@ -76,29 +102,31 @@
                 <ul class="clearfix hd">
                     <li class="cur"><a href="user_info.jsp">个人信息</a></li>
                     <li><a href="user_pwd.jsp">修改密码</a></li>
-                    <li><a href="user_tab.jsp">申请高级用户</a></li>
+                    <c:if test="${user.role==1}"><li><a href="user_upgrade.jsp">申请高级用户</a></li></c:if>
+                    <c:if test="${user.role==2}"><li><a href="user_upgrade.jsp">开辟新板块</a></li></c:if>
                 </ul>
 
 
-                <form action="${pageContext.request.contextPath}/user/updateEmail.do" method="post" >
+                <form action="${pageContext.request.contextPath}/user/updateInformation.do" method="post" enctype="multipart/form-data">
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l"><i class="red">*</i>用户名：</div>
-                            <div class="info-r"><input type="text" class="txt" name="userName" value="${user.userName}"  /></div>
+                            <div class="info-r"><input type="text" class="txt" name="userName" value="${sessionScope.user.userName}" readonly="readonly"  /></div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l">邮箱地址：</div>
-                            <div class="info-r"><input type="text" name="email" class="txt" value="${user.email}"/></div>
+                            <div class="info-r"><input type="text" id="email" name="email" class="txt" /></div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l">上传头像：</div>
-                            <div class="info-r"><input type="file" name="picUrl" class="file-btn" value="${user.picUrl}"/></div>
+                            <div class="info-r"><input type="file" name="picurl" class="file-btn"/></div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l"></div>
                             <div class="info-r">
                                 <input type="submit" class="btn" value="保存"/>
-                                <span style="color:red;">修改成功！</span>
+                                <div>${result}</div>
+                                <%--<span style="color:red;">修改成功！</span>--%>
                             </div>
                         </li>
                     </ul>
