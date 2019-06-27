@@ -1,10 +1,11 @@
 package com.bbs.service;
 
 import com.bbs.domain.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService{
     /**
      * 查询所有用户信息
      *

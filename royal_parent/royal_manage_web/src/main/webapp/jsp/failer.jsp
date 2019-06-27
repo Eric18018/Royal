@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>登录页面</title>
+    <title>登录失败</title>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
@@ -11,8 +11,15 @@
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="/bootstrap/bootstrap.min.js"></script>
 
+    <style type="text/css">
+        .txt{
+            font-size: 20px;
+            color: red;
+        }
+    </style>
 </head>
 <body>
+
 <div class="container">
     <div class="row">
         <div class="col-md-4 col-md-offset-4" style="margin: 380px 380px">
@@ -22,17 +29,15 @@
                 </div>
                 <div class="panel-body">
                     <div id="errorMsg" class="alert alert-danger" ></div>
-                    <form role="form" method="post" id="login_form" action="${pageContext.request.contextPath}/login.do">
+                    <form role="form" method="post" id="login_form">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="用户名" name="username" autofocus>
+                                <b class="txt">对不起，由于您的余额不足，已被关闭登录权限 ！！！</b>
                             </div>
-                            <div class="form-group">
-                                <input class="form-control" placeholder="密码" name="userpass" type="password">
-                            </div>
+
                             <!-- Change this to a button or input when using this as a form -->
                             <!--<a href="javascript:void(0)" class="btn btn-lg btn-success btn-block" id='login_btn'>登录</a>-->
-                            <input type="submit" id="btn_sub" class="btn btn-lg btn-success btn-block" value="登录">
+                            <input onclick="javascrtpt:window.location.href='/jsp/login.jsp'" type="button" id="btn_sub" class="btn btn-lg btn-success btn-block" value="充值">
                         </fieldset>
                     </form>
 
