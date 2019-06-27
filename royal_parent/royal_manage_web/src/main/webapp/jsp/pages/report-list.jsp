@@ -27,65 +27,37 @@
         <div class="hrms_main_ad col-sm-10">
             <div class="panel panel-success">
                 <ol class="breadcrumb">
-                    <li><a href="#">用户帖子管理</a></li>
-                    <li class="active">帖子信息</li>
+                    <li><a href="#">用户帖管理</a></li>
+                    <li class="active">审批举报</li>
                 </ol>
 
-                <hr>
-
-                <%--搜索栏--%>
-
-                <form action="${pageContext.request.contextPath}/article/findByUsernameAndTitle.do">
-                    <div class="dropdown">
-                    <b>标题：</b><input type="text" class="dropdown-toggle seek" name="title">
-                    <b>创贴人：</b><input type="text" class="dropdown-toggle seek" name="name">
-
-
-                    <button type="submit" class="btn btn-primary btn-xs" >查询</button>
-                </div>
-
-
-                </form>
-                <hr>
                 <%--表格--%>
                 <div class="box-body"></div>
                 <table id="example2" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>标题</th>
-                        <th>内容</th>
-                        <th>创贴人</th>
-                        <th>是否置顶</th>
-                        <th>回复数</th>
-                        <th>点赞数</th>
-                        <th>浏览数</th>
-                        <th>所在交流区</th>
+                        <th>帖子ID</th>
+                        <th>举报内容</th>
+                        <th>举报人</th>
+                        <th>举报时间</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${pageInfo.list}" var="article">
+                    <c:forEach items="${report_list}" var="report">
                         <tr>
-                            <td>${article.title}</td>
-                            <td>${article.content }</td>
-                            <td>${article.senderName }</td>
-                            <td>${article.isTopStr}</td>
-                            <td>${article.replyCount}</td>
-                            <td>${article.upvoteCount }</td>
-                            <td>${article.browseCount}</td>
-                            <td>${article.zoneId}</td>
-                                    <td>
-                                        <a href="${pageContext.request.contextPath}/article/deleteByArticleId.do?articleId=${article.articleId}"
-                                           class="btn btn-primary btn-xs">屏蔽</a>
-                                        <c:if test="${article.isTop == 1}">
-                                        <a href="${pageContext.request.contextPath}/article/updateByArticleId.do?articleId=${article.articleId}&isTop=${article.isTop}"
-                                           class="btn btn-info btn-xs">取消</a>
-                                        </c:if>
-                                        <c:if test="${article.isTop == 0}">
-                                        <a href="${pageContext.request.contextPath}/article/updateByArticleId.do?articleId=${article.articleId}&isTop=${article.isTop}"
-                                           class="btn btn-danger btn-xs">置顶</a>
-                                        </c:if>
-                                    </td>
+                            <td>${report.reportId }</td>
+                            <td>${report.reportContent }</td>
+                            <td>${report.reportUserName }</td>
+                            <td>${report.reportTime }</td>
+                            <td>
+                                <a href="${pageContext.request.contextPath}/report/deleteByReportId.do?report=${report.reportId}"
+                                   class="btn btn-primary btn-xs">相关帖子</a>
+                                    <a href="${pageContext.request.contextPath}/report/deleteByReportId.do?reportId=${report.reportId}"
+                                       class="btn btn-info btn-xs">屏蔽</a>
+                                    <a href="${pageContext.request.contextPath}/article/updateByArticleId.do?articleId=${article.articleId}&isTop=${article.isTop}"
+                                       class="btn btn-danger btn-xs">驳回</a>
+                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>

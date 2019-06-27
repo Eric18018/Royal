@@ -11,6 +11,8 @@
             border-radius: 5px 5px 5px 5px;
         }
     </style>
+    <script src="../../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <%--<script src="D:\work\Royal\royal_parent\royal_manage_web\src\main\webapp\plugins\jQuery\jquery-2.2.3.min.js"></script>--%>
 </head>
 <body>
 <div class="hrms_container">
@@ -32,23 +34,41 @@
                 </ol>
                 <hr>
                 <%--搜索栏--%>
-                <form action="${pageContext.request.contextPath}/user/findByUsernameAndRole.do">
-
+                <%--<form action="${pageContext.request.contextPath}/user/findByUsernameAndRole.do">--%>
+                 <form action="${pageContext.request.contextPath}/user/findByUsernameAndRole.do?name='valName'&role='selectedValue'">
                     <div class="dropdown">
                         <b>用户名：</b><input type="text" class="dropdown-toggle seek " name="name">
                         <%--<b>用户组：</b><input type="text" class="dropdown-toggle" name="role">--%>
 
-                        <b>用户组：</b><input type="text" list="roles" class="seek">
-                        <datalist id="roles">
-                            <option value="普通用户"
-                                    href="${pageContext.request.contextPath}/user/findByUsernameAndRole.do?role=1">
-                            <option value="高级用户"
-                                    href="${pageContext.request.contextPath}/user/findByUsernameAndRole.do?role=2">
-                            <option value="超级管理员"
-                                    href="${pageContext.request.contextPath}/user/findByUsernameAndRole.do?role=2">
-                        </datalist>
 
-                        <button type="submit" class="btn btn-primary btn-xs" href="#">查询</button>
+                        <span>用户组</span>
+                        <select name="role" style="width: 170px; height: 27px">
+                            <option></option>
+                            <option value="1">普通用户</option>
+                            <option value="2">高级用户</option>
+                            <option value="3">超级管理员</option>
+                        </select>
+                    <%--<b>用户组：</b><input type="text" class="dropdown-toggle" name="role">--%>
+
+
+                        <%--<button type="button" class="btn dropdown-toggle" id="dropdownMenu1"--%>
+                                <%--data-toggle="dropdown" name="role">--%>
+                            <%--请输入用户组--%>
+                            <%--<span class="caret"></span>--%>
+                        <%--</button>--%>
+                        <%--<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">--%>
+           <%--                 <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/user/findByUsernameAndRole.do?role=1">普通用户</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/user/findByUsernameAndRole.do?role=2">高级用户</a>
+                            </li>
+                            <li role="presentation">
+                                <a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/user/findByUsernameAndRole.do?role=3">超级管理员</a>
+                            </li>--%>
+                            <%--<input type="text" value="1">普通用户</input>--%>
+                        <%--</ul>--%>
+                        <button type="submit" class="btn btn-primary btn-xs">查询</button>
                     </div>
 
 
@@ -143,4 +163,56 @@
 
 
 </body>
+    <script>
+        window.onload = function () {
+            data: {
+              role: '';
+              name: '';
+            };
+
+            var select = document.getElementById("role");
+            var name = document.getElementById("name");
+
+            //1.如何获得当前选中的值？：
+           // var value = select.value;
+            var valName = name.value;//获取用户名
+
+            //2.如何获得该下拉框所有的option的节点对象
+            var options = select.options;
+            //注意：得到的options是一个对象数组
+
+            //3.如何获得第几个option的value值?比如我要获取第一option的value,可以这样：
+            var value1 = options[0].value;
+            //4.如何获得第几个option的文本内容?比如我要获取第一option的文本,可以这样：
+            // var text1 = options[0].text;
+
+            //5.如何获得当前选中的option的索引？
+            var index = select.selectedIndex;
+
+            //6.如何获得当前选中的option的文本内容？
+            //从第2个问题，我们已经获得所有的option的对象数组options了
+            //又从第5个问题，我们获取到了当前选中的option的索引值
+            //所以我们只要同options[index]下标的方法得到当前选中的option了
+            // var selectedText = options[index].text;
+            var selectedValue = options[index].value;//获取下拉的value值
+            // var names = valName.text
+            // console.log(selectedText)
+            // console.log(selectedValue)
+            // console.log(valName)
+            $("#btn").click(function(){
+                console.log(selectedValue)
+                console.log(valName)
+                $.get("${pageContext.request.contextPath}/user/findByUsernameAndRole.do?name='valName'&role='selectedValue'",function(data,status){
+                    alert("Data: " + data + "\nStatus: " + status);
+                });
+                <%--$.post("${pageContext.request.contextPath}/user/findByUsernameAndRole.do",{--%>
+                    <%--name: valName,--%>
+                    <%--role: selectedValue--%>
+                <%--},function(data,status){--%>
+                    <%--alert("Data: " + data + "\nStatus: " + status);--%>
+                <%--});--%>
+            });
+
+        }
+    </script>
 </html>

@@ -41,10 +41,28 @@ public class UserServiceImpl implements UserService {
      * @param username
      * @return
      */
-    @Override
+/*    @Override
     public User findByUsername(String username) {
 
         return userDao.findByUsername(username);
+    }*/
+
+
+    /**
+     * 后台通过用户名和角色查找所有用户
+     *
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<User> findUsernameAndRole(String name, String role,Integer page,Integer size) {
+ /*       if (role != null || !"".equals(role) || name != null || !"".equals(name)) {
+            PageHelper.startPage(page,size);
+            return userDao.findByUsernameAndRole(name,role,page,size);
+        }else {
+            return userDao.findAllUser(name,role,page,size);*/
+            PageHelper.startPage(page,size);
+             return userDao.findByUsernameAndRole(name,role);
     }
 
     /**
@@ -56,6 +74,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User findByNameAndPass(String userName, String userPass) {
+
         return userDao.findByNameAndPass(userName, userPass);
     }
 

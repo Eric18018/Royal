@@ -1,6 +1,7 @@
 package com.bbs.service;
 
 import com.bbs.domain.User;
+import jdk.nashorn.internal.ir.IfNode;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -33,7 +34,24 @@ public interface UserService extends UserDetailsService{
      * @param username
      * @return
      */
-    User findByUsername(String username);
+//    User findByUsername(String username);
+
+
+    /**
+     * 查询有用户名和角色
+     * @param name,role
+     * @return
+     */
+    List<User> findUsernameAndRole(String name, String role,Integer page,Integer size);
+
+
+
+    /**
+     * 查询有用户名和角色
+     * @param userName,role
+     * @return
+     */
+//    List<User> findUsernameAndRole(String name, Integer role);
 
     User findByNameAndPass(String userName, String userPass);
 
@@ -54,4 +72,9 @@ public interface UserService extends UserDetailsService{
      * @throws Exception
      */
     void stopByUserId(Integer userId, Integer talkStatus) throws Exception;
+
+
+
+
+	//User findByNameAndPass(String userName, String userPass);
 }

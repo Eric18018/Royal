@@ -7,7 +7,7 @@
                 <span class="glyphicon glyphicon-user" aria-hidden="true">用户管理</span>
             </a>
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a href="${pageContext.request.contextPath}/user/findAll.do" >用户信息</a></li>
+                <li role="presentation"><a href="/user/findAll.do" >用户信息</a></li>
             </ul>
             <ul class="nav nav-pills nav-stacked">
                 <li role="presentation"><a href="/zoneapply/findAll.do" >版块审核</a></li>
@@ -26,7 +26,7 @@
                 <li role="presentation"><a href="/word/findAll.do" >敏感词汇管理</a></li>
             </ul>
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a href="/report/findByPage.do" >审批举报</a></li>
+                <li role="presentation"><a href="/report/findAll.do" >审批举报</a></li>
             </ul>
         </li>
     </ul>

@@ -1,6 +1,7 @@
 package com.bbs.service;
 
 import com.bbs.domain.Article;
+import com.bbs.domain.User;
 
 import java.util.List;
 
@@ -45,9 +46,20 @@ public interface ArticleService {
 	/**
 	 * 关键字查询功能
 	 * @param msg
-	 * @param page
-	 * @param size
 	 * @return
 	 */
     List<Article> findByLike(String msg);
+
+
+	/**
+	 * 根据发帖人和标题查询
+	 * @param name  贴子id
+	 * @param title      置顶状态
+	 * @return
+	 * @throws Exception
+	 */
+
+    List<Article> findByUsernameAndTitle(String title, String name, Integer page, Integer size)throws Exception;
+
+
 }

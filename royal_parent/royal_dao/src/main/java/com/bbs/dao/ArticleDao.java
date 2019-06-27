@@ -1,4 +1,5 @@
 package com.bbs.dao;
+import com.bbs.domain.User;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.annotations.Delete;
 import com.bbs.domain.Article;
@@ -88,4 +89,29 @@ public interface ArticleDao {
 	 */
 	@Select("SELECT * FROM bbs_article_table WHERE title LIKE #{msg}")
     List<Article> findByLike(String msg);
+
+
+
+
+
+	/**
+	 * 后台查询根据创帖人或标题查询，在创帖人和标题都为空的情况下调用此方法
+	 *
+	 */
+
+	@Select("select * from bbs_article_table")
+	List<Article> findAllArticle(@Param("name") String name, @Param("title") String title,@Param("page") Integer page,@Param("size") Integer size);
+
+
+
+
+	/**
+	 * 后台帖子根据标题和创帖人查询
+	 * @param name  创帖人
+	 * @param title  标题
+	 * @return
+	 *
+	 */
+	@Select("select * from bbs_article_table where title like #{title} or senderName like #{name} ")
+	List<Article> findByUsernameAndTitle(@Param("title") String title, @Param("name") String name);
 }

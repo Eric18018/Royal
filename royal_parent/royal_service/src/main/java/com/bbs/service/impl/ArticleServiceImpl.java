@@ -1,7 +1,9 @@
 package com.bbs.service.impl;
 
 import com.bbs.dao.ArticleDao;
+import com.bbs.dao.UserDao;
 import com.bbs.domain.Article;
+import com.bbs.domain.User;
 import com.bbs.service.ArticleService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +33,8 @@ public class ArticleServiceImpl implements ArticleService {
         article.setBrowseCount(0);
         article.setIsReport(0);
         articleDao.save(article);
-
     }
+
 
     //删帖功能
     @Override
@@ -124,12 +126,25 @@ public class ArticleServiceImpl implements ArticleService {
 	/**
 	 * 关键字查询功能
 	 * @param msg
-	 * @param page
-	 * @param size
 	 * @return
 	 */
 	@Override
 	public List<Article> findByLike(String msg) {
 		return articleDao.findByLike(msg);
+	}
+
+
+
+	/**
+	 * 帖子根据标题和创帖人查询
+	 * @param name  发帖人
+	 * @param title  标题
+	 * @return
+	 *
+	 */
+	@Override
+	public List<Article> findByUsernameAndTitle(String title, String name,Integer page, Integer size) {
+		PageHelper.startPage(page,size);
+		return articleDao.findByUsernameAndTitle(title,name);
 	}
 }

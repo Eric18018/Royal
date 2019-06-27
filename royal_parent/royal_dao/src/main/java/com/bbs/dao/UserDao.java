@@ -1,5 +1,6 @@
 package com.bbs.dao;
 
+import com.bbs.domain.Article;
 import com.bbs.domain.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -7,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
+import javax.naming.Name;
 import java.util.List;
 
 /**
@@ -21,7 +23,7 @@ public interface UserDao {
      * @return
      */
     @Select("select * from bbs_user_table")
-    public List<User> findAll();
+     List<User> findAll();
 
     /**
      * 保存用户注册信息的方法
@@ -52,6 +54,18 @@ public interface UserDao {
     //更改密码
     @Update("update bbs_user_table set userPass = #{passWord} where userId=#{userId}")
     void upDatePassWord(String passWord);
+
+
+
+    /**
+     * 后台根据用户名和角色查询用户信息
+     *
+     * @param role
+     */
+    @Select("SELECT * FROM bbs_user_table WHERE userName like #{name} or role like #{role} ")
+    List<User>findByUsernameAndRole(@Param("name") String name, @Param("role") String role);
+
+
 
     /**
      * 根据用户名和密码查询user对象的方法
@@ -84,4 +98,15 @@ public interface UserDao {
      */
     @Update("update bbs_user_table set talkStatus = #{talkStatus} where userId = #{userId}")
     void stopByUserId(@Param("userId") Integer userId, @Param("talkStatus") Integer talkStatus);
+
+
+
+    /**
+     * 查询根据用户名或角色查询，在用户名和角色都为空的情况下调用此方法
+     * @param name        用户名
+     * @param role    角色
+     */
+
+    @Select("select * from bbs_user_table")
+    List<User> findAllUser(@Param("name") String name,@Param("role") String role,@Param("page") Integer page, @Param("size") Integer size);
 }
